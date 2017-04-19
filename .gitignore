@@ -1,4 +1,19 @@
 *.class
+/RemoteSystemsTempFiles/
+
+*/target
+/.metadata
+/.recommenders
+*/.metadata
+/*/.settings
+/*/bin
+/*/.settings
+/*/.classpath
+/*/.project
+/*/*/.project
+
+# Diagram tools for eclipse
+*.ucls
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
