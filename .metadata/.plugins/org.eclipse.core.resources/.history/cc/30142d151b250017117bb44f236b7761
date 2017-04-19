@@ -20,9 +20,9 @@
 			String button1 = "Register";
 			String button2 = "Log in";
 			String button3 = "Upload";
-			String link1 = "../register";
-			String link2 = "../login";
-			String link3 = "../login";
+			String link1 = "register.jsp";
+			String link2 = "login.jsp";
+			String link3 = "login.jsp";
 		}
 		else{
 			%><!--	button1 = (String)session.getAttribute("username");
