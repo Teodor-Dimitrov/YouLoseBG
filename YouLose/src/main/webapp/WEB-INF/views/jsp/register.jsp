@@ -41,10 +41,6 @@
 		Confirm Password: <input type="password"
 			placeholder="enter password again" name="password2"
 			required="required"></br>
-		Profile picture:<method="POST" enctype="multipart/form-data">
-	<input type="file" id="profilePic" name="profilePicture" accept="image/*">
-	<input type="submit" value="Upload">
-		</select></br> 
 		
 	</form>
 	<form action="../login" method="get">
