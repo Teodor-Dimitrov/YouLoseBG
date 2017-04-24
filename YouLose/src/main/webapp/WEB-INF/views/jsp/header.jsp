@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,49 +8,41 @@
 <title>header</title>
 </head>
 <body bgcolor="lightgreen">
-<%! boolean logged;
-	String button1 = "Register";
-	String button2 = "Log in";
-	String button3 = "Upload";
-	String link1 = "../register";
-	String link2 = "../login";
-	String link3 = "../main";%>
-	<% if(session.getAttribute("logged")!=null){
-		logged = (Boolean) session.getAttribute("logged");
-		if(logged){
-			String button1 = "Register";
-			String button2 = "Log in";
-			String button3 = "Upload";
-			String link1 = "../register";
-			String link2 = "../login";
-			String link3 = "../login";
-		}
-		else{
-			%><!--	button1 = (String)session.getAttribute("username");
-			button2 = "Log out";
-			button3 = "upload file";
-			link1 = "profile.jsp";
-			link2 = "main.jsp";
-			link3 = "upload.jsp";--><% 
-		}
-	}
-	%>
+<c:set var="loggedJsp" scope="session" value="false"/>
+<c:set var="button1" scope="session" value="Register"/>
+<c:set var="button2" scope="session" value="Log in"/>
+<c:set var="button3" scope="session" value="Upload"/>
+<c:set var="link1" scope="session" value="../register"/>
+<c:set var="link2" scope="session" value="../login"/>
+<c:set var="link3" scope="session" value="../main"/>
+	<c:if test="${logged != null}">
+	<c:set var="loggedJsp" scope="session" value="logged"/>
+		<c:if test="${loggedJsp != null}">
+		<c:set var="button1" scope="session" value="Register"/>
+		<c:set var="button2" scope="session" value="Log in"/>
+		<c:set var="button3" scope="session" value="Upload"/>
+		<c:set var="link1" scope="session" value="../register"/>
+		<c:set var="link2" scope="session" value="../login"/>
+		<c:set var="link3" scope="session" value="../login"/>
+		
+		</c:if>
+	 </c:if>
 	<div align = "right">
-	<% if (session.getAttribute("user")!=null){ %>
-	<%= session.getAttribute("user") %>
-	<% } %>
+	<c:if test="${user != null}">
+	<c:out value="${username}"/>
+	</c:if>
 	<table><tr><td>
-	<form action="<%= link1%>" method="get">
-				<input type="submit" value="<%= button1%>">
+	<form action="${link1}" method="get">
+				<input type="submit" value=""${button1} ">
 		</form></td>
 		<td>
-		<form action="<%= link2%>" method="get">
-				<input type="submit" value="<%= button2%>">
+		<form action=" ${link2} " method="get">
+				<input type="submit" value="${button2} ">
 		</form>
 		</td>
 		<td>
-		<form action="<%= link3%>" method="get">
-				<input type="submit" value="<%= button3%>">
+		<form action=" ${link3}" method="get">
+				<input type="submit" value="${button3} ">
 		</form>
 		</td>
 		</tr>
