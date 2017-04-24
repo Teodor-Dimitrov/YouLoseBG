@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Playlist;
+import model.Video;
 
 public class PlaylistDAO {
 	private static PlaylistDAO instance;
@@ -83,5 +85,35 @@ public class PlaylistDAO {
 		}
 
 		return playlists;
+	}
+	
+	public List<Video> getVideosOFPlaylist(int playlistID, int userID) {
+
+		String sql = "SELECT v.video_id, v.name, v.path, v.views, v.date, v.description"
+				+ "FROM mydb.videos v join mydb.playlist_videos s"
+				+ " using(video_id) where s.playlists_playlist_id = ? AND s.videos_video_playlist_id = ?;";
+
+		List<Video> videos = new ArrayList<Video>();
+		PreparedStatement ps = null;
+		try {
+			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+			ps.setInt(1, playlistID);
+			ps.setInt(2, userID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Video video = new Video();
+				video.setDate(rs.getTimestamp("path").toLocalDateTime());
+				video.setDescription(rs.getString("description"));
+				video.setId(rs.getInt("video_id"));
+				video.setName(rs.getString("name"));
+				video.setViews(rs.getInt("views"));
+				video.setPath(rs.getString("path"));
+				videos.add(video);
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return videos;
 	}
 }
