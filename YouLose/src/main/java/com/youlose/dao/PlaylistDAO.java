@@ -3,6 +3,9 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import model.Playlist;
 
 public class PlaylistDAO {
 	private static PlaylistDAO instance;
@@ -55,5 +58,30 @@ public class PlaylistDAO {
 		ps.executeUpdate();
 	}
 	
-	
+	public ArrayList<Playlist> getUserPlaylists(int userID) throws SQLException {
+		String sql = "SELECT playlist_id, name, user_id FROM mydb.playlists where users_user_id = ?;";
+
+		ArrayList<Playlist> playlists = new ArrayList<>();
+		PreparedStatement ps = null;
+		try {
+			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+			ps.setInt(1, userID);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				Playlist playlist = new Playlist();
+				playlist.setName(rs.getString("name"));
+				playlist.setUserID(rs.getInt("user_id"));
+				playlist.setPlaylistID(rs.getInt("playlist_id"));
+				playlists.add(playlist);
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return playlists;
+	}
 }
