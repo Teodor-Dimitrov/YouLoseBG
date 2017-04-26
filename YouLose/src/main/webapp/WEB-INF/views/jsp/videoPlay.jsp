@@ -15,6 +15,12 @@
 		</td>
 		<td>
 			<jsp:include page="player.jsp" />
+			
+		<c:forEach var ="video" items="${videoCommnets}" begin="0" end="videoCommnets.size()-1">
+  		 <c:out value="${comment.userID.name }": /> <c:out value="${comment.postedDate }": /></br>
+  		  <c:out value="${comment.content }"/></br>
+		</c:forEach>
+			
 		</td>
 </body>
 </html>
