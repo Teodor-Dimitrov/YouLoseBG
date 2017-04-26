@@ -1,4 +1,5 @@
 package com.youlose.controller;
+package com.youlose.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

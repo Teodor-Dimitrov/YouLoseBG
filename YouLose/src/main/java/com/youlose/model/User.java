@@ -11,7 +11,7 @@ public class User {
 	private String password;
 	private String name;
 	private int userID;
-	private File profilePicture;
+	private String profilePicture;
 	private HashMap<String, Playlist> userPlaylist;
 
 	public User() {
@@ -57,11 +57,11 @@ public class User {
 		this.userID = userID;
 	}
 
-	public File getProfilePicture() {
+	public String getProfilePicture() {
 		return profilePicture;
 	}
 
-	public void setProfilePicture(File profilePicture) {
+	public void setProfilePicture(String profilePicture) {
 		this.profilePicture = profilePicture;
 	}
 

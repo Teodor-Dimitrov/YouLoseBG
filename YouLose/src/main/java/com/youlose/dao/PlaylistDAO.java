@@ -1,4 +1,4 @@
-package dao;
+package com.youlose.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,13 +6,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Playlist;
-import model.Video;
+import com.youlose.model.Playlist;
+import com.youlose.model.Video;
+
+
 
 public class PlaylistDAO {
 	private static PlaylistDAO instance;
 	
-	private PlaylistDAO{
+	private PlaylistDAO(){
 		
 	}
 
@@ -33,7 +35,7 @@ public class PlaylistDAO {
 			ps.setInt(1, userID);
 			ps.setString(2, name);
 			ps.executeUpdate();
-			ResultSet rs = ps();
+			ResultSet rs = ps.getGeneratedKeys();
 			while (rs.next()) {
 				playlistID = rs.getInt(1);
 			}

@@ -1,4 +1,4 @@
-package dao;
+package com.youlose.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,9 +9,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import model.Comment;
-import model.User;
-import model.Video;
+import com.youlose.model.Comment;
+import com.youlose.model.User;
+
+
 
 public class CommentDAO {
 
@@ -66,7 +67,6 @@ public class CommentDAO {
 				comment.setContent(rs.getString("d.content"));
 				comment.setUserID(rs.getInt("d.users_user_comment_id"));
 				comment.setVideoID(rs.getInt("d.videos_video_comment_id"));
-				comment.setUsername(rs.getString("u.username"));
 				comments.add(comment);
 			}
 		} catch (SQLException e) {

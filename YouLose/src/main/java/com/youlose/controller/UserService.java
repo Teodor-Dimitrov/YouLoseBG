@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.youlose.model.User;
+import com.youlose.dao.UserDAO;
 
 @RestController
 public class UserService {
