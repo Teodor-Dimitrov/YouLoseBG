@@ -27,7 +27,7 @@ public class PlaylistDAO {
 	
 
 	public int createPlaylist(int userID, String name) {
-		String sql = "insert into mydb.playlists (user_id, title) VALUES (?,?,?) ";
+		String sql = "insert into mydb.playlists (user_id, title) VALUES (?,?) ";
 		int playlistID = 0;
 		PreparedStatement ps = null;
 		try {
@@ -89,18 +89,17 @@ public class PlaylistDAO {
 		return playlists;
 	}
 	
-	public List<Video> getVideosOFPlaylist(int playlistID, int userID) {
+	public ArrayList<Video> getVideosOFPlaylist(int playlistID) {
 
 		String sql = "SELECT v.video_id, v.name, v.path, v.views, v.date, v.description"
 				+ "FROM mydb.videos v join mydb.playlist_videos s"
-				+ " using(video_id) where s.playlists_playlist_id = ? AND s.videos_video_playlist_id = ?;";
+				+ " using(video_id) where s.playlists_playlist_id = ?;";
 
-		List<Video> videos = new ArrayList<Video>();
+		ArrayList<Video> videos = new ArrayList<Video>();
 		PreparedStatement ps = null;
 		try {
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, playlistID);
-			ps.setInt(2, userID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Video video = new Video();
@@ -118,4 +117,21 @@ public class PlaylistDAO {
 		}
 		return videos;
 	}
+	
+	 public boolean existPlaylist(String name , int userID) throws SQLException {
+			String sql = "SELECT user_id,name FROM mydb.playlist WHERE user_id=? AND name=?;";
+			PreparedStatement ps = null;
+
+				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+				ps.setInt(1, userID);
+				ps.setString(2, name);
+				ResultSet rs = ps.executeQuery();
+			
+				if(rs.next()){
+					return false;
+				}
+
+				return true;
+				
+			}
 }
