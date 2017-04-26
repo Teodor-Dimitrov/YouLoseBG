@@ -12,16 +12,15 @@
 <h1>Upload video here</h1>
 <table>
 		<td>
-		<jsp:include page="left.jsp" />
+			<jsp:include page="left.jsp" />
 		</td>
 		<td>
-
-<form method="POST" enctype="multipart/form-data">
-	<input type="file" id="video" name="newVideo" accept="video/*">
-	<input type="submit" value="Upload now">
-</form>
-<h2>Uploading of ${filename} successful!</h2>	
-</td>
+			<form method="POST" enctype="multipart/form-data">
+			<input type="file" id="video" name="newVideo" accept="video/*">
+			<input type="submit" value="Upload now">
+			</form>
+			<h2>Uploading of ${filename} successful!</h2>	
+		</td>
 </table>
 </body>
 </html>

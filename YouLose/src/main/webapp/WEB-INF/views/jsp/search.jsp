@@ -8,17 +8,18 @@
 <title>Search results</title>
 </head>
 <body>
-<body>
 <jsp:include page="header.jsp" />
 <table>
 	<td>
 		<jsp:include page="left.jsp" />
 	</td>
 	<td>
-		<h1>Results for ${ user.searchedWord }</h1>
+		<h1>Results for ${user.searchedWord}</h1>
+	<c:forEach var ="video" items="${searchedWordList}" begin="0" end="searchedWordList.size()-1">
+   <c:out value="$video" type = "video"/></br>
+</c:forEach>
 	</td>
 </table>
-
 </body>
 </body>
 </html>
