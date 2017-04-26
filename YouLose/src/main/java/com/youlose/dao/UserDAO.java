@@ -22,6 +22,7 @@ public class UserDAO {
 	public synchronized static UserDAO getInstance() {
 		if (instance == null) {
 			instance = new UserDAO();
+			instance.getAllUsers();
 		}
 		return instance;
 	}
@@ -240,8 +241,10 @@ public class UserDAO {
 		String msg = "Registration successful";
 		if(!password.equals(confPass)){
 			msg="Passwords not matching";
+			System.out.println("pass match");
 		}
 		if(users.containsKey(email)){
+			System.out.println("tuka?");
 			msg="A user with this email already exists";
 		}
 		for(User u : users.values()){
