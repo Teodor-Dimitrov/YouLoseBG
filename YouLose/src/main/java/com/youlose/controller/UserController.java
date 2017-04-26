@@ -17,6 +17,11 @@ import com.youlose.model.User;
 @Controller
 public class UserController {
 
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String showMainPage(){
+		return "main";
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogInForm(){
 		return "login";
@@ -40,10 +45,14 @@ public class UserController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(HttpServletRequest req, HttpSession s){
-		String username = (String) req.getAttribute("name");
-		String email = (String) req.getAttribute("email");
-		String password = (String) req.getAttribute("password");
-		String confPassword = (String) req.getAttribute("password2");
+		String username = req.getParameter("username");
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		String confPassword = req.getParameter("password2");
+		System.out.println(username);
+		System.out.println(email);
+		System.out.println(password);
+		System.out.println(confPassword);
 		
 		String msg = UserDAO.getInstance().validateRegistration(email, username, password, confPassword);
 		if(msg.equals("Registration successful")){
