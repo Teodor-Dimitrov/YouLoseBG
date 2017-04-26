@@ -25,11 +25,13 @@
 	<div align="right">
 		<c:if test="${user != null}">
 			<c:out value="${username}" />
-		</c:if>
+			</c:if>
 		<table>
 			<tr>
 			<td>
-				<img src="image/${ user.username }"  alt="profile Picture" style="width:50px;">			
+			<c:if test="${user != null}">
+				<img src="image/${ user.username }"  alt="profile Picture" style="width:50px;">	
+				</c:if>		
 			</td>
 				<td>
 					<form action="${link1}" method="get">
@@ -48,6 +50,7 @@
 				</td>
 			</tr>
 		</table>
+		
 	</div>
 
 	<table>
