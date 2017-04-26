@@ -14,7 +14,7 @@
 		</td>
 	<td>
 	<h1>Register Here</h1>
-	<form action="../register" method="post">
+	<form action="register" method="post">
 		Username: <input type="text" placeholder="enter username"
 			name="username" required="required"> </br>
 		E-mail: <input type="email" placeholder="enter email" name="email"
@@ -24,9 +24,10 @@
 		Confirm Password: <input type="password"
 			placeholder="enter password again" name="password2"
 			required="required"></br>
+		<input type="submit", value = "Register"><br>
 		
 	</form>
-	<form action="../login" method="get">
+	<form action="login" method="get">
 				<input type="submit" value="Already a registered user? Login here."></br></br>
 		</form>
 </td>

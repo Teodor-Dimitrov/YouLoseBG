@@ -16,12 +16,12 @@
 		<td>
 			<h1>Invalid data!</h1>
 			<h1>Please, login</h1>
-				<form action="../login" method="post">
+				<form action="login" method="post">
 					Username: <input type="text" placeholder="enter username" name="user"></br>
 					Password: <input type="password" placeholder="enter pass"name="password" ></br>
 							<input type="submit" value="Login"></br>
 				</form>
-				<form action="../forgottenPassword" method="post">
+				<form action="forgottenPassword" method="post">
 					Forgotten password?Please, enter your username or email:</br>
 				<input type="text" name="usernameOrEmail">
 				<input type="submit" value = "submit"></br>

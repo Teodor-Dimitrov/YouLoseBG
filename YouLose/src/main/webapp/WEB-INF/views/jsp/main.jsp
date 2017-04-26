@@ -14,7 +14,7 @@
 		<jsp:include page="left.jsp" />
 	</td>
 	<td>
-		<form action="../uploadVideo">
+		<form action="uploadVideo">
 			Upload video:<method="POST" enctype="multipart/form-data">
 			<input type="file" id="video" name="profilePicture" accept="video/*">
 			<input type="submit" value="Upload">

@@ -10,22 +10,22 @@
 <body>
 <table>
 		<td>
-		<form action="../home" method="get">
+		<form action="index" method="get">
 				<input type="submit" value="Home"></br></br>
 		</form>
-		<form action="../profile" method="get">
+		<form action="profile" method="get">
 				<input type="submit" value="My profile"></br></br>
 		</form>
-		<form action="../forLater" method="get">
+		<form action="forLater" method="get">
 				<input type="submit" value="Watch later"></br></br>
 		</form>
-		<form action="../watched" method="get">
+		<form action="watched" method="get">
 				<input type="submit" value="Watched"></br></br>
 		</form>
-		<form action="../liked" method="get">
+		<form action="liked" method="get">
 				<input type="submit" value="Liked"></br></br>
 		</form>
-		<form action="../subscriptions" method="get">
+		<form action="subscriptions" method="get">
 				<input type="submit" value="Subscriptions"></br></br>
 		</form>
 		</td>

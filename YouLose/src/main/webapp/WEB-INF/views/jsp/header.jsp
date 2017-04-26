@@ -11,16 +11,16 @@
 	<c:set var="button1" scope="session" value="Home" />
 	<c:set var="button2" scope="session" value="Log out" />
 	<c:set var="button3" scope="session" value="Upload" />
-	<c:set var="link1" scope="session" value="../home" />
-	<c:set var="link2" scope="session" value="../logOut" />
-	<c:set var="link3" scope="session" value="../uploadVideo" />
+	<c:set var="link1" scope="session" value="home" />
+	<c:set var="link2" scope="session" value="logOut" />
+	<c:set var="link3" scope="session" value="uploadVideo" />
 	<c:if test="${user == null}">
 			<c:set var="button1" scope="session" value="Register" />
 			<c:set var="button2" scope="session" value="Log in" />
 			<c:set var="button3" scope="session" value="Upload" />
-			<c:set var="link1" scope="session" value="../register" />
-			<c:set var="link2" scope="session" value="../login" />
-			<c:set var="link3" scope="session" value="../login" />
+			<c:set var="link1" scope="session" value="register" />
+			<c:set var="link2" scope="session" value="login" />
+			<c:set var="link3" scope="session" value="login" />
 	</c:if>
 	<div align="right">
 		<c:if test="${user != null}">
@@ -62,7 +62,7 @@
 			<td><font face="Helvetica Rounded Bold" size="7">YouLose</font>
 			</td>
 			<td>
-				<form action="../search" method="post">
+				<form action="search" method="post">
 					<input type="submit" value="Search"> <select
 						name="searched" style="width: 150px;">
 						<option value="1">VIDEO</option>

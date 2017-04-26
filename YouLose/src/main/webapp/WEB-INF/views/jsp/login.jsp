@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -23,7 +22,7 @@ Password: <input type="password" placeholder="Enter password"
 			name="password" required="required"></br>
 		<input type="submit" value="Login"></br>
 	</form>
-			<form action="../register" method="post">
+			<form action="register" method="post">
 				<input type="submit" value="Don`t have an account? Register here."></br></br>
 			</form>
 </td>
