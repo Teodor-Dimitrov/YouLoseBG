@@ -1,4 +1,4 @@
-package dao;
+package com.youlose.dao;
 
 import java.awt.List;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.ToDoubleBiFunction;
 
-import model.User;
+import com.youlose.model.User;
 
 public class UserDAO {
 	private static UserDAO instance;
