@@ -8,12 +8,12 @@
 <title>header</title>
 </head>
 <body bgcolor="lightgreen">
-	<c:set var="button1" scope="session" value="Register" />
-	<c:set var="button2" scope="session" value="Log in" />
+	<c:set var="button1" scope="session" value="Home" />
+	<c:set var="button2" scope="session" value="Log out" />
 	<c:set var="button3" scope="session" value="Upload" />
-	<c:set var="link1" scope="session" value="../register" />
-	<c:set var="link2" scope="session" value="../login" />
-	<c:set var="link3" scope="session" value="../main" />
+	<c:set var="link1" scope="session" value="../home" />
+	<c:set var="link2" scope="session" value="../logOut" />
+	<c:set var="link3" scope="session" value="../uploadVideo" />
 	<c:if test="${user == null}">
 			<c:set var="button1" scope="session" value="Register" />
 			<c:set var="button2" scope="session" value="Log in" />
@@ -28,6 +28,9 @@
 		</c:if>
 		<table>
 			<tr>
+			<td>
+				<img src="image/${ user.username }"  alt="profile Picture" style="width:50px;">			
+			</td>
 				<td>
 					<form action="${link1}" method="get">
 						<input type="submit" value="${button1}">
@@ -67,5 +70,6 @@
 	</table>
 	<hr>
 
+</body>
 </body>
 </html>
