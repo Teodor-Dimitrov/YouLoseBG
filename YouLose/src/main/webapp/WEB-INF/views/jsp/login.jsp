@@ -9,28 +9,10 @@
 </head>
 <body bgcolor="lightgreen">
 <jsp:include page="header.jsp" />
-	
 	<table >
-		<td>
-		<form action="../home" method="get">
-				<input type="submit" value="Home"></br></br>
-		</form>
-		<form action="../profile" method="get">
-				<input type="submit" value="My profile"></br></br>
-		</form>
-		<form action="../forLater" method="get">
-				<input type="submit" value="Watch later"></br></br>
-		</form>
-		<form action="../watched" method="get">
-				<input type="submit" value="Watched"></br></br>
-		</form>
-		<form action="../liked" method="get">
-				<input type="submit" value="Liked"></br></br>
-		</form>
-		<form action="../subscriptions" method="get">
-				<input type="submit" value="Subscriptions"></br></br>
-		</form>
-		</td>
+	<td>
+	<jsp:include page="left.jsp" />
+	</td>
 	<td>
 	<h1>Please, login</h1>
 	<form action="../login" method="post">

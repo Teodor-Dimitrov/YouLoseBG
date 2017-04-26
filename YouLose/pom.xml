@@ -56,6 +56,11 @@
 			<artifactId>not-yet-commons-ssl</artifactId>
 			<version>0.3.9</version>
 		</dependency>
+		<dependency>
+    <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+</dependency>
 	</dependencies>
 
 	<build>
