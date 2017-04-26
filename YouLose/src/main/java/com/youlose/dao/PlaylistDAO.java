@@ -9,8 +9,6 @@ import java.util.List;
 import com.youlose.model.Playlist;
 import com.youlose.model.Video;
 
-
-
 public class PlaylistDAO {
 	private static PlaylistDAO instance;
 	

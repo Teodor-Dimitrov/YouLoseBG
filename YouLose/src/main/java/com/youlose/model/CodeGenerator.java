@@ -1,6 +1,5 @@
 package com.youlose.model;
 
-
 import java.security.SecureRandom;
 
 public class CodeGenerator {

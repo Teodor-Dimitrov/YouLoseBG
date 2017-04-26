@@ -12,8 +12,6 @@ import java.util.HashMap;
 import com.youlose.model.Comment;
 import com.youlose.model.User;
 
-
-
 public class CommentDAO {
 
 	private static CommentDAO instance;

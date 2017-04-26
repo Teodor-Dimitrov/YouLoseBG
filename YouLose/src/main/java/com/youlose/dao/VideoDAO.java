@@ -11,8 +11,6 @@ import com.youlose.model.Playlist;
 import com.youlose.model.User;
 import com.youlose.model.Video;
 
-
-
 public class VideoDAO {
 
 	private static VideoDAO instance;

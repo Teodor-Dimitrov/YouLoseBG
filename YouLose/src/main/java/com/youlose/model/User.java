@@ -13,6 +13,7 @@ public class User {
 	private int userID;
 	private String profilePicture;
 	private HashMap<String, Playlist> userPlaylist;
+	public static final String DEFAULT_PROFILE_PIC = "webapp/profile_pictures/default.png";
 
 	public User() {
 		this.userPlaylist= new HashMap<>();

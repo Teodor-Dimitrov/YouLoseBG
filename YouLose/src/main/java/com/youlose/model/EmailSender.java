@@ -1,5 +1,6 @@
 package com.youlose.model;
 
+
 import java.util.Properties;
 
 import javax.activation.DataHandler;

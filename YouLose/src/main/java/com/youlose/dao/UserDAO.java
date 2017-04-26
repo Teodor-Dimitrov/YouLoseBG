@@ -1,11 +1,14 @@
 package com.youlose.dao;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.awt.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.ToDoubleBiFunction;
@@ -14,7 +17,7 @@ import com.youlose.model.User;
 
 public class UserDAO {
 	private static UserDAO instance;
-	private Set<User> users = new HashSet<User>();
+	private HashMap<String, User> users = new HashMap<>();
 
 	public synchronized static UserDAO getInstance() {
 		if (instance == null) {
@@ -37,7 +40,7 @@ public class UserDAO {
 			int rowsAffected = statement.executeUpdate();
 			if (rowsAffected > 0) {
 				System.out.println("Saving user is successful!!");
-				users.add(user);
+				users.put(user.getEmail(), user);
 				return true;
 			}
 
@@ -70,7 +73,7 @@ public class UserDAO {
 		return true;
 	}
 
-	public Set<User> getAllUsers() {
+	public HashMap<String, User> getAllUsers() {
 		if (users != null) {
 			Statement st = null;
 			try {
@@ -85,7 +88,7 @@ public class UserDAO {
 					user.setUserID(resultSet.getInt("user_id"));
 					user.setName(resultSet.getString("username"));
 					user.setProfilePicture(resultSet.getString("profile_picture"));
-					users.add(user);
+					users.put(user.getEmail(), user);
 				}
 
 			} catch (SQLException e) {
@@ -231,5 +234,21 @@ public class UserDAO {
 			System.out.println("err with updating name");
 			e.printStackTrace();
 		}
+	}
+	
+	public String validateRegistration(String email, String name, String password, String confPass){
+		String msg = "Registration successful";
+		if(!password.equals(confPass)){
+			msg="Passwords not matching";
+		}
+		if(users.containsKey(email)){
+			msg="A user with this email already exists";
+		}
+		for(User u : users.values()){
+			if(u.getName().equals(name)){
+				msg="A user with this email already exists";
+			}
+		}
+		return msg;
 	}
 }
