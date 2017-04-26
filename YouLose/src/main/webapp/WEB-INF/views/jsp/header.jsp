@@ -28,11 +28,13 @@
 			</c:if>
 		<table>
 			<tr>
-			<td>
+			
 			<c:if test="${user != null}">
+			<td>
 				<img src="image/${ user.username }"  alt="profile Picture" style="width:50px;">	
+					</td>
 				</c:if>		
-			</td>
+		
 				<td>
 					<form action="${link1}" method="get">
 						<input type="submit" value="${button1}">
