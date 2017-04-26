@@ -12,27 +12,10 @@
 <jsp:include page="header.jsp" />
 <table >
 		<td>
-		<form action="../home" method="get">
-				<input type="submit" value="Home"></br></br>
-		</form>
-		<form action="../profile" method="get">
-				<input type="submit" value="My profile"></br></br>
-		</form>
-		<form action="../forLater" method="get">
-				<input type="submit" value="Watch later"></br></br>
-		</form>
-		<form action="../watched" method="get">
-				<input type="submit" value="Watched"></br></br>
-		</form>
-		<form action="../liked" method="get">
-				<input type="submit" value="Liked"></br></br>
-		</form>
-		<form action="../subscriptions" method="get">
-				<input type="submit" value="Subscriptions"></br></br>
-		</form>
+			<jsp:include page="left.jsp" />
 		</td>
 		<td>
-			<img src="image/${ user.username }">
+			<img src="image/${ user.username }"  alt="profile Picture" style="width:128px;">
 			<c:out value="${ user.username }"/></br>
 			<h3>Change profile picture:</h3>
 	<form method="POST" enctype="multipart/form-data">

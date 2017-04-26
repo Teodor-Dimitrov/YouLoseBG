@@ -9,34 +9,16 @@
 <body>
 <jsp:include page="header.jsp" />
 <table >
-		<td>
-		<form action="../home" method="get">
-				<input type="submit" value="Home"></br></br>
-		</form>
-		<form action="../profile" method="get">
-				<input type="submit" value="My profile"></br></br>
-		</form>
-		<form action="../forLater" method="get">
-				<input type="submit" value="Watch later"></br></br>
-		</form>
-		<form action="../watched" method="get">
-				<input type="submit" value="Watched"></br></br>
-		</form>
-		<form action="../liked" method="get">
-				<input type="submit" value="Liked"></br></br>
-		</form>
-		<form action="../subscriptions" method="get">
-				<input type="submit" value="Subscriptions"></br></br>
-		</form>
-		</td>
-		<td>
+	<td>
+		<jsp:include page="left.jsp" />
+	</td>
+	<td>
 		<form action="../uploadVideo">
-		Upload video:<method="POST" enctype="multipart/form-data">
-	<input type="file" id="video" name="profilePicture" accept="video/*">
-	<input type="submit" value="Upload">
-	</form>
-		
-		</td>
+			Upload video:<method="POST" enctype="multipart/form-data">
+			<input type="file" id="video" name="profilePicture" accept="video/*">
+			<input type="submit" value="Upload">
+		</form>
+	</td>
 	</table>
 </body>
 </html>
