@@ -21,7 +21,7 @@ public class CommentController {
 	@ResponseBody
 	@RequestMapping(value = "/comment", method = RequestMethod.POST)
 	public void comment(Model model, HttpSession session, @RequestParam(value = "comment") String comment) {
-		User user = (User) session.getAttribute("currentUser");
+		User user = (User) session.getAttribute("user");
 		Video video = (Video) session.getAttribute("videoToPlaylist");
 		CommentDAO.getInstance().addComment(comment, user.getUserID(), video.getId());
 		System.out.println("ima komentarrrrrrrrrrrrrr");
@@ -31,7 +31,7 @@ public class CommentController {
 	@RequestMapping(value = "/likeComment", method = RequestMethod.POST)
 	public void likeComment(Model model, HttpSession session, @RequestParam(value = "commentId") int commentId) {
 
-		User user = (User) session.getAttribute("currentUser");
+		User user = (User) session.getAttribute("user");
 		try {
 			CommentDAO.getInstance().likeComment(user.getUserID(), commentId);
 			System.out.println("Opaaa");
@@ -45,7 +45,7 @@ public class CommentController {
 	public void dislikeComment(Model model, HttpSession session,
 			@RequestParam(value = "commentId") int commentId) {
 
-		User user = (User) session.getAttribute("currentUser");
+		User user = (User) session.getAttribute("user");
 		Video video = (Video) session.getAttribute("videoToPlaylist");
 		try {
 			CommentDAO.getInstance().dislikeComment(user.getUserID(), commentId);

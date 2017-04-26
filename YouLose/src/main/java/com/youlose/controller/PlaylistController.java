@@ -27,7 +27,7 @@ public class PlaylistController {
 		
 		@RequestParam(value = "description") String name,
 		HttpServletRequest request, HttpSession session) {
-		User user = (User)session.getAttribute("currentUser");
+		User user = (User)session.getAttribute("user");
 		Video video = (Video)session.getAttribute("videoToPlaylist");
 		if (validatePlaylist(name, request, session)) {
 			try {
@@ -63,7 +63,7 @@ public class PlaylistController {
 			
 			@RequestParam(value = "name") String name,
 			HttpServletRequest request, HttpSession session){
-		User user = (User)session.getAttribute("currentUser");
+		User user = (User)session.getAttribute("user");
 		System.out.println(name);
 		
 		boolean isValid = false;
@@ -80,7 +80,7 @@ public class PlaylistController {
 	public String getPlaylist(
 		@PathVariable(value = "playlistId") int playlistID,Model model,
 		HttpServletRequest request, HttpSession session) {
-		User user = (User)session.getAttribute("currentUser");
+		User user = (User)session.getAttribute("user");
 		System.out.println(user);
 		ArrayList<Video> videos = PlaylistDAO.getInstance().getVideosOFPlaylist(playlistID);
 		model.addAttribute("videosInPlaylist", videos);

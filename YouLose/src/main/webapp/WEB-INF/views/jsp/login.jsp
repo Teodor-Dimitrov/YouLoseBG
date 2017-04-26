@@ -16,7 +16,7 @@
 	</td>
 	<td>
 	<h1>Please, login</h1>
-	<form action="../login" method="post">
+	<form action="login" method="post">
 Email: <input type="text" placeholder="Enter email" name="email"
 			required="required"></br>
 Password: <input type="password" placeholder="Enter password"
