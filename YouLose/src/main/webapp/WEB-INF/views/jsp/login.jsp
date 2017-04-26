@@ -17,9 +17,9 @@
 	<td>
 	<h1>Please, login</h1>
 	<form action="../login" method="post">
-Username: <input type="text" placeholder="enter username" name="user"
+Email: <input type="text" placeholder="Enter email" name="email"
 			required="required"></br>
-Password: <input type="password" placeholder="enter pass"
+Password: <input type="password" placeholder="Enter password"
 			name="password" required="required"></br>
 		<input type="submit" value="Login"></br>
 	</form>
