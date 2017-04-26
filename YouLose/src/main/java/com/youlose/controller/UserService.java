@@ -1,4 +1,4 @@
-package com.youlose.controller;
+/*package com.youlose.controller;
 
 import java.util.ArrayList;
 
@@ -24,9 +24,9 @@ public class UserService {
 		if(user.equals("searchresults")){
 			selectedUsers = UserDAO.getInstance().searchUsers(resultList);
 		}
-		if(UserDAO.getInstance().getAll().contains(user)){
+		if(UserDAO.getInstance().getAllUsers().contains(user)){
 			selectedUsers = UserDAO.getInstance().getPlaylist(resultList);
 		}
 		return selectedUsers;
 	}
-}
+}*/
