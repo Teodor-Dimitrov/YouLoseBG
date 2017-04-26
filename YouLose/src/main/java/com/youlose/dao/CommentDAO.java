@@ -75,22 +75,22 @@ public class CommentDAO {
 	}
 
 	// 1 for like
-	public void likeComment(Comment comment, User user) throws SQLException {
+	public void likeComment(int userID, int commentID) throws SQLException {
 		String sql = "INSERT INTO comment_liked_disliked (comments_comment_id, users_user_comment_liked_id,like_or_dislike) VALUES (?,?,?);";
 		PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, user.getUserID());
-		ps.setInt(2, comment.getCommentID());
+		ps.setInt(1, userID);
+		ps.setInt(2, commentID);
 		ps.setInt(3, 1);
 		ps.executeUpdate();
 
 	}
 
 	// 2 for dislike
-	public void dislikeComment(Comment comment, User user) throws SQLException {
+	public void dislikeComment(int commentID, int userID) throws SQLException {
 		String sql = "INSERT INTO comment_liked_disliked (comments_comment_id, users_user_comment_liked_id,like_or_dislike) VALUES (?,?,?);";
 		PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, user.getUserID());
-		ps.setInt(2, comment.getCommentID());
+		ps.setInt(1, userID);
+		ps.setInt(2, commentID);
 		ps.setInt(3, 2);
 		ps.executeUpdate();
 	}
