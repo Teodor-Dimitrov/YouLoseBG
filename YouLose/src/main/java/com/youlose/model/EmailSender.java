@@ -1,5 +1,4 @@
-package platform;
-
+package com.youlose.model;
 
 
 import java.util.Properties;

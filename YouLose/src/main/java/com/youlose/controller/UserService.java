@@ -1,4 +1,4 @@
-package com.youlose.controller;
+/*package com.youlose.controller;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.youlose.model.User;
+import com.youlose.dao.UserDAO;
 
 @RestController
 public class UserService {
@@ -23,9 +24,9 @@ public class UserService {
 		if(user.equals("searchresults")){
 			selectedUsers = UserDAO.getInstance().searchUsers(resultList);
 		}
-		if(UserDAO.getInstance().getAll().contains(user)){
+		if(UserDAO.getInstance().getAllUsers().contains(user)){
 			selectedUsers = UserDAO.getInstance().getPlaylist(resultList);
 		}
 		return selectedUsers;
 	}
-}
+}*/

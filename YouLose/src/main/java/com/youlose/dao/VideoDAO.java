@@ -1,4 +1,4 @@
-package dao;
+package com.youlose.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import model.Comment;
-import model.Playlist;
-import model.User;
-import model.Video;
+import com.youlose.model.Comment;
+import com.youlose.model.Playlist;
+import com.youlose.model.User;
+import com.youlose.model.Video;
 
 public class VideoDAO {
 

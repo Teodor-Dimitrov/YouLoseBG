@@ -1,4 +1,4 @@
-package validators;
+package com.youlose.model;
 
 import java.security.SecureRandom;
 
