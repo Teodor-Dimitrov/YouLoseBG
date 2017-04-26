@@ -64,7 +64,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logOut(HttpSession s){
-		s.removeAttribute("user");
+		s.res.oveAttribute("user");
 		s.removeAttribute("logged");
 		return "main";
 	}

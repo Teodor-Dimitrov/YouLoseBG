@@ -37,6 +37,7 @@ public class UserDAO {
 			int rowsAffected = statement.executeUpdate();
 			if (rowsAffected > 0) {
 				System.out.println("Saving user is successful!!");
+				users.add(user);
 				return true;
 			}
 
@@ -97,32 +98,6 @@ public class UserDAO {
 		} else {
 			return users;
 		}
-	}
-
-	// shte go vzima po ime
-	public User getUser(String name) {
-		String sql = "SELECT user_id, username, email, password, profile_picture FROM users WHERE username = ?;";
-		User user = null;
-		PreparedStatement ps = null;
-		try {
-			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-			ps.setString(1, name);
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				user = new User();
-				user.setEmail(rs.getString("email"));
-				user.setName(rs.getString("username"));
-				user.setPassword(rs.getString("password"));
-				user.setUserID(rs.getInt("user_id"));
-				user.setProfilePicture(rs.getString("profile_picture"));
-				System.out.println("done!");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return user;
 	}
 
 	public boolean subscribeUser(int subscriberID, int subscribedID) {
