@@ -7,14 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>header</title>
 </head>
-<body bgcolor="lightgreen">
-<c:set var="loggedJsp" scope="session" value="false"/>
-<c:set var="button1" scope="session" value="Register"/>
-<c:set var="button2" scope="session" value="Log in"/>
-<c:set var="button3" scope="session" value="Upload"/>
-<c:set var="link1" scope="session" value="../register"/>
-<c:set var="link2" scope="session" value="../login"/>
-<c:set var="link3" scope="session" value="../main"/>
+	<body bgcolor="lightgreen">
+		<c:set var="loggedJsp" scope="session" value="false"/>
+		<c:set var="button1" scope="session" value="Register"/>
+		<c:set var="button2" scope="session" value="Log in"/>
+		<c:set var="button3" scope="session" value="Upload"/>
+		<c:set var="link1" scope="session" value="../register"/>
+		<c:set var="link2" scope="session" value="../login"/>
+		<c:set var="link3" scope="session" value="../main"/>
 	<c:if test="${logged != null}">
 	<c:set var="loggedJsp" scope="session" value="logged"/>
 		<c:if test="${loggedJsp != null}">
