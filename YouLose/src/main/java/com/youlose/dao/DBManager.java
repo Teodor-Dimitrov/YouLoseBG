@@ -35,13 +35,17 @@ public class DBManager {
 	}
 
 	public Connection getConnection() {
-		if(con == null){
+		if (con == null) {
 		}
 		return con;
 	}
-	
-	public void closeConnection(){
-		
+
+	public void closeConnection() {
+		try {
+			this.con.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 }
