@@ -14,8 +14,8 @@
 		<jsp:include page="left.jsp" />
 	</td>
 	<td>
-		<h1>Results for ${user.searchedWord}</h1>
-	<c:forEach var ="video" items="${searchedWordList}" begin="0" end="searchedWordList.size()-1">
+		<h1>Results for ${sessisonScope.searched}</h1>
+	<c:forEach var ="current" items="${sess}" begin="0" end="searchedWordList.size()-1">
    <c:out value="$video" type = "video"/></br>
 </c:forEach>
 	</td>

@@ -14,9 +14,11 @@
 		<jsp:include page="left.jsp" />
 	</td>
 	<td>
-		<form method="POST" action="uploadVideo" enctype="multipart/form-data">
+		<form method="POST" enctype="multipart/form-data">
 			Upload video:<br>
 			<input type="file" id="video" name="video" accept="video/*"><br>
+			<input type="text" placeholder="Name"	name="videoName" required="required"> <br>
+			<input type="text" placeholder="Description"	name="description" required="required"> <br>
 			<input type="submit" value="Upload">
 		</form>
 	</td>

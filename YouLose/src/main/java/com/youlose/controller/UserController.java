@@ -1,6 +1,7 @@
 package com.youlose.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.youlose.dao.UserDAO;
-
+import com.youlose.dao.VideoDAO;
 import com.youlose.model.User;
+import com.youlose.model.Video;
 
 @Controller
 public class UserController {
@@ -141,4 +144,42 @@ public class UserController {
 
 	}
 
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String search(HttpSession s,
+			@RequestParam("serchWord") String searchWord,
+			@RequestParam("searched") String searched){
+		if(searched.equals("Videos")){
+			HashMap<String, Video> results = new HashMap<>();
+			s.setAttribute("searched", searchWord);
+			try{
+				results = VideoDAO.getInstance().searchAllByString(searchWord);
+				if(results.isEmpty()){
+					s.setAttribute("results", "none");
+				}
+				else{
+					s.setAttribute("results", results.keySet());
+				}
+			}
+			catch(SQLException e){
+				System.out.println("Greshka pri tyrsene");
+			}
+		}
+		else if(searched.equals("Users)")){
+			if(UserDAO.getInstance().getAllUsers().containsKey(searchWord)){
+				s.setAttribute("results", UserDAO.getInstance().getAllUsers().get(searchWord));
+			}
+			else{
+				s.setAttribute("results", "none");
+			}
+		}
+		
+		else if(searched.equals("Playlists")){
+			
+		}
+		
+		
+		return "search";
+	}
+	
 }

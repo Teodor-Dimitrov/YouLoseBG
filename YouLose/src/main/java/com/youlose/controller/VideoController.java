@@ -32,7 +32,7 @@ public class VideoController {
 	private static final String FILE_LOC = "D:" + File.separator + "Uploads" + File.separator + "videos"
 			+ File.separator;
 
-	@RequestMapping(value = "/uploadVideo", method = RequestMethod.POST)
+	@RequestMapping(value = "main", method = RequestMethod.POST)
 	public String uploadVideo(@RequestParam("videoFile") MultipartFile multiPartFile,
 			@RequestParam("videoName") String name, @RequestParam("userId") int userID,
 			@RequestParam("description") String description, HttpSession session, Model model) throws IOException {
