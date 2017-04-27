@@ -31,12 +31,13 @@ public class UserDAO {
 
 		PreparedStatement statement = null;
 		try {
-			String sql = "INSERT INTO users (email,username,password)" + "VALUES(?,?,?)";
+			String sql = "INSERT INTO users (email,username,password,profile_picture)" + "VALUES(?,?,?,?)";
 			statement = DBManager.getInstance().getConnection().prepareStatement(sql);
 
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getName());
 			statement.setString(3, user.getPassword());
+			statement.setString(4, user.getProfilePicture());
 
 			int rowsAffected = statement.executeUpdate();
 			if (rowsAffected > 0) {
@@ -64,7 +65,7 @@ public class UserDAO {
 			ResultSet rs = ps.executeQuery();
 
 			if (!(rs.next())) {
-				System.out.println("Wrong data. ");
+				System.out.println("Wrong data.");
 				return false;
 			}
 

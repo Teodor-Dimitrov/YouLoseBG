@@ -11,8 +11,8 @@
 	<c:set var="button1" scope="session" value="Home" />
 	<c:set var="button2" scope="session" value="Log out" />
 	<c:set var="button3" scope="session" value="Upload" />
-	<c:set var="link1" scope="session" value="home" />
-	<c:set var="link2" scope="session" value="logOut" />
+	<c:set var="link1" scope="session" value="index" />
+	<c:set var="link2" scope="session" value="logout" />
 	<c:set var="link3" scope="session" value="uploadVideo" />
 	<c:if test="${user == null}">
 			<c:set var="button1" scope="session" value="Register" />
@@ -29,12 +29,6 @@
 		<table>
 			<tr>
 			
-			<c:if test="${user != null}">
-			<td>
-				<img src="image/${ user.username }"  alt="profile Picture" style="width:50px;">	
-					</td>
-				</c:if>		
-		
 				<td>
 					<form action="${link1}" method="get">
 						<input type="submit" value="${button1}">
@@ -63,12 +57,13 @@
 			</td>
 			<td>
 				<form action="search" method="post">
-					<input type="submit" value="Search"> <select
-						name="searched" style="width: 150px;">
-						<option value="1">VIDEO</option>
-						<option value="2">PLAYLIST</option>
-						<option value="3">USER</option>
-					</select>
+					<input type="text" placeholder="Search" name="serchWord" required="required" style="width: 250px;">
+					 <select name="searched" style="width: 150px;">
+						    <option value="video">Videos</option>
+						    <option value="user">Users</option>
+						    <option value="playlist">Playlists</option>
+					  </select>
+					<input type="submit" value="Search"> 
 				</form>
 			</td>
 		</tr>

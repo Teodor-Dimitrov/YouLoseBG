@@ -8,7 +8,7 @@ public class DBManager {
 	private static DBManager instance;
 	private static final String DB_IP = "localhost";
 	private static final String DB_PORT = "3306";
-	private static final String DB_NAME = "userlose";
+	private static final String DB_NAME = "mydb";
 	private static final String DB_USER = "root";
 	private static final String DB_PASS = "Sh0wt1me";
 	private Connection con = null;

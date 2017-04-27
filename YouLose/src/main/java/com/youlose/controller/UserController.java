@@ -29,11 +29,11 @@ public class UserController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String logIn(HttpServletRequest req, HttpSession s){
-		String email = (String) req.getAttribute("name");
-		String password = (String) req.getAttribute("password");
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
 		if(UserDAO.getInstance().loginValid(email, password)){
 			s.setAttribute("user", UserDAO.getInstance().getAllUsers().get(email));
-			return "main";
+			return "redirect:/index";
 		}
 		return "invalidLogin";
 	}
@@ -68,14 +68,8 @@ public class UserController {
 		return "register";
 	}
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String showLogOutForm(){
-		
-		
-		return "logout";
-	}
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logOut(HttpSession s){
 		s.invalidate();
 		return "main";
@@ -114,6 +108,15 @@ public class UserController {
 			return "redirect:" +link;
 		}
 		return "login";
+	}
+	
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String viewProfile(HttpSession s){
+		if(s.getAttribute("user")==null){
+			return "main";
+		}
+		
+		return "profile";
 	}
 	
 }

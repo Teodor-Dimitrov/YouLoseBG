@@ -15,13 +15,7 @@
 			<jsp:include page="left.jsp" />
 		</td>
 		<td>
-			<img src="image/${ user.username }"  alt="profile Picture" style="width:128px;">
-			<c:out value="${ user.username }"/></br>
-			<h3>Change profile picture:</h3>
-	<form method="POST" enctype="multipart/form-data">
-		<input type="file" id="profilePic" name="profilePicture" accept="image/*">
-		<input type="submit" value="Upload">
-	</form></br>
+
 	<form action="changeUsername" method="post">
 		<h3>Change username:</h3>
 		<input type="submit" value="Change">

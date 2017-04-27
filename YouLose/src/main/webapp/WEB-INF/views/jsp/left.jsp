@@ -13,6 +13,7 @@
 		<form action="index" method="get">
 				<input type="submit" value="Home"></br></br>
 		</form>
+		
 		<form action="profile" method="get">
 				<input type="submit" value="My profile"></br></br>
 		</form>
