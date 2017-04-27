@@ -89,13 +89,13 @@ public class VideoDAO {
 
 	}
 
-	public synchronized void likeVideo(Video video, User user) throws SQLException {
+	public synchronized void likeVideo(int videoID, int userID) throws SQLException {
 		String sql = "INSERT INTO video_liked_or_disliked (users_user_id, videos_videos_id,like_or_dislike) VALUES (?,?,?);";
 		PreparedStatement ps = null;
 
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, video.getId());
-		ps.setInt(2, user.getUserID());
+		ps.setInt(1, userID);
+		ps.setInt(2, videoID);
 		ps.setInt(3, 1);
 		int rows = ps.executeUpdate();
 		if (rows > 0) {
@@ -104,13 +104,13 @@ public class VideoDAO {
 
 	}
 
-	public synchronized void dislikeVideo(Video video, User user) throws SQLException {
+	public synchronized void dislikeVideo(int videoID, int userID) throws SQLException {
 		String sql = "INSERT INTO video_liked_or_disliked (users_user_id, videos_videos_id,like_or_dislike) VALUES (?,?,?);";
 		PreparedStatement ps = null;
 
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, video.getId());
-		ps.setInt(2, user.getUserID());
+		ps.setInt(1, userID);
+		ps.setInt(2, videoID);
 		ps.setInt(3, 2);
 		int rows = ps.executeUpdate();
 		if (rows > 0) {
