@@ -27,7 +27,7 @@ import com.youlose.model.Video;
 @MultipartConfig
 public class VideoController {
 
-	private static final String FILE_LOC = "D:"+File.separator+"Uploads"+File.separator + "videos" + File.separator;
+	private static final String FILE_LOC = "D:"+File.separator+"Uploads" + File.separator + "videos" + File.separator;
 	
 	@RequestMapping(value="/uploadVideo", method=RequestMethod.POST)
 	public String uploadVideo(@RequestParam("videoFile") MultipartFile multiPartFile,
@@ -36,9 +36,9 @@ public class VideoController {
 							    @RequestParam("description") String description,
 								HttpSession session,Model model) throws IOException{
 		
-		User user = (User)session.getAttribute("currentUser");
+		User user = (User)session.getAttribute("user");
 		System.out.println("offf");
-		File fileD = new File(FILE_LOC + name + ".mp3");
+		File fileD = new File(FILE_LOC + name + ".mp4");
 		fileD.createNewFile();
 		Files.copy(multiPartFile.getInputStream(), fileD.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		Video video = new Video();
@@ -46,7 +46,7 @@ public class VideoController {
 		video.setDescription(description);
 		video.setDate(LocalDateTime.now());
 		video.setName(name);
-		video.setPath(FILE_LOC + name + ".mp3");
+		video.setPath(FILE_LOC + name + ".mp4");
 		video.setViews(1);
 		
 		
