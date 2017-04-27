@@ -20,7 +20,7 @@ public class VideoDAO {
 	private static VideoDAO instance;
 	private static final HashMap<String, Video> allVideos = new HashMap<>();//
 
-	public synchronized VideoDAO getInstance() {
+	public synchronized static VideoDAO getInstance() {
 		if (instance == null) {
 			instance = new VideoDAO();
 		}
@@ -78,7 +78,7 @@ public class VideoDAO {
 		PreparedStatement ps = null;
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 		ps.setString(1, video.getName());
-		ps.setString(2, video.getName());
+		ps.setString(2, video.getPath());
 		ps.setInt(3, video.getViews());
 		ps.setTimestamp(4, time);
 		ps.setString(5, video.getDescription());

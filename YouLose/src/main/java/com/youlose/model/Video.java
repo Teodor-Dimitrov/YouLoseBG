@@ -33,6 +33,10 @@ public class Video {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public String getPath() {
+		return path;
+	}
 
 	public String getName() {
 		return name;
