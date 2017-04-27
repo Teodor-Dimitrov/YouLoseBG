@@ -56,7 +56,7 @@
 			<td><font face="Helvetica Rounded Bold" size="7">YouLose</font>
 			</td>
 			<td>
-				<form action="search" method="post">
+				<form action="search" method="get">
 					<input type="text" placeholder="Search" name="serchWord" required="required" style="width: 250px;">
 					 <select name="searched" style="width: 150px;">
 						    <option value="video">Videos</option>
