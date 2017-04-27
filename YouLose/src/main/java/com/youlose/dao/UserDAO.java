@@ -175,23 +175,25 @@ public class UserDAO {
 	}
 
 	public boolean unSubscribeUser(int subscriberID, int subscribedID) {
+		if (subscribedID != 0) {
+			String sql = "DELETE from user_subscribers WHERE users_subscriber_id = ? AND users_user_id = ?;";
+			PreparedStatement ps = null;
 
-		String sql = "DELETE from user_subscribers WHERE users_subscriber_id = ? AND users_user_id = ?;";
-		PreparedStatement ps = null;
+			try {
+				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+				ps.setInt(1, subscriberID);
+				ps.setInt(2, subscribedID);
 
-		try {
-			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-			ps.setInt(1, subscriberID);
-			ps.setInt(2, subscribedID);
+				int rows = ps.executeUpdate();
 
-			int rows = ps.executeUpdate();
+				if (rows > 0) {
+					return true;
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
 
-			if (rows > 0) {
-				return true;
 			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-
+			return false;
 		}
 		return false;
 	}
