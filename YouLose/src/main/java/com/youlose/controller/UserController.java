@@ -1,5 +1,7 @@
 package com.youlose.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -117,6 +119,20 @@ public class UserController {
 		}
 		
 		return "profile";
+	}
+	
+	
+	@RequestMapping(value="/subscribe", method = RequestMethod.POST)
+	public void subscribeUser(Model model,HttpSession session){
+		User currentUser = (User) session.getAttribute("user");
+		User subscribUser = null;
+		subscribUser = UserDAO.getInstance().getUser((User)session.getAttribute("usernameSubscribe"));
+		if(UserDAO.getInstance().subscribeUser(currentUser.getUserID(),subscribUser.getUserID())){
+			System.out.println("subscribe is done");
+		} else {
+			return;
+		}
+
 	}
 	
 }

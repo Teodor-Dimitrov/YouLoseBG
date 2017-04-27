@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.function.ToDoubleBiFunction;
 
 import com.youlose.model.User;
+import com.youlose.model.Video;
 
 public class UserDAO {
 	private static UserDAO instance;
@@ -75,6 +77,16 @@ public class UserDAO {
 		return true;
 	}
 
+	// get of user from cashcollection
+	public User getUser(User user) {
+		for (Entry<String, User> entry : users.entrySet()) {
+			if (entry.getValue().equals(user)) {
+				return entry.getValue();
+			}
+		}
+		return null;
+	}
+
 	public HashMap<String, User> getAllUsers() {
 		if (users != null) {
 			Statement st = null;
@@ -106,20 +118,23 @@ public class UserDAO {
 	}
 
 	public boolean subscribeUser(int subscriberID, int subscribedID) {
-		String sql = "INSERT into user_subscribers (users_user_id, users_subscriber_id) values (?,?);";
-		PreparedStatement ps = null;
-		try {
-			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-			ps.setInt(1, subscribedID);
-			ps.setInt(2, subscriberID);
-			int rows = ps.executeUpdate();
-			if (rows > 0) {
-				return true;
+		if (subscribedID != 0) {
+			String sql = "INSERT into user_subscribers (users_user_id, users_subscriber_id) values (?,?);";
+			PreparedStatement ps = null;
+			try {
+				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+				ps.setInt(1, subscribedID);
+				ps.setInt(2, subscriberID);
+				int rows = ps.executeUpdate();
+				if (rows > 0) {
+					return true;
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
 			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
 
+			return false;
+		}
 		return false;
 	}
 
@@ -237,20 +252,20 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	public String validateRegistration(String email, String name, String password, String confPass){
+
+	public String validateRegistration(String email, String name, String password, String confPass) {
 		String msg = "Registration successful";
-		if(!password.equals(confPass)){
-			msg="Passwords not matching";
+		if (!password.equals(confPass)) {
+			msg = "Passwords not matching";
 			System.out.println("pass match");
 		}
-		if(users.containsKey(email)){
+		if (users.containsKey(email)) {
 			System.out.println("tuka?");
-			msg="A user with this email already exists";
+			msg = "A user with this email already exists";
 		}
-		for(User u : users.values()){
-			if(u.getName().equals(name)){
-				msg="A user with this email already exists";
+		for (User u : users.values()) {
+			if (u.getName().equals(name)) {
+				msg = "A user with this email already exists";
 			}
 		}
 		return msg;
