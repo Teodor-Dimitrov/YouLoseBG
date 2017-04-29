@@ -52,7 +52,7 @@
 	<table>
 		<tr>
 			<td><img src="youlose.png" alt="logo"
-				style="width: 75px; height:;"></td>
+				style="width: 75px; height;"></td>
 			<td><font face="Helvetica Rounded Bold" size="7">YouLose</font>
 			</td>
 			<td>
