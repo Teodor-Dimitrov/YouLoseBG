@@ -15,15 +15,15 @@
 	<jsp:include page="left.jsp" />
 	</td>
 	<td>
-<form action="/changePorifleData" method="post">
-		 old ${session.getWhatIsGoingToBeChanged }: <input type="text" placeholder="enter old ${session.getWhatIsGoingToBeChanged }"
+		<form action="/changePorifleData" method="post">
+			old ${session.getWhatIsGoingToBeChanged }: <input type="text" placeholder="enter old ${session.getWhatIsGoingToBeChanged }"
 			name="old" required="required"> </br>
-		new ${session.getWhatIsGoingToBeChanged }: <input type="text" placeholder="enter new ${session.getWhatIsGoingToBeChanged }" name="new"
+			new ${session.getWhatIsGoingToBeChanged }: <input type="text" placeholder="enter new ${session.getWhatIsGoingToBeChanged }" name="new"
 			required="required"></br> 
-		Confirm new ${session.getWhatIsGoingToBeChanged }: <input type="text" 
+			Confirm new ${session.getWhatIsGoingToBeChanged }: <input type="text" 
 			placeholder="enter new ${session.getWhatIsGoingToBeChanged }" name="new2"
 			required="required"></br>
-		<input type="submit", value = "submit"><br>
+			<input type="submit", value = "submit"><br>
 		</form>
 		</td>
 		</table>

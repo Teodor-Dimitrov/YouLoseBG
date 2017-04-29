@@ -15,7 +15,13 @@
 			<jsp:include page="left.jsp" />
 		</td>
 		<td>
-
+				<img src="${ user.profilePicture}" alt="profile picture" style="width:75px;heigth;">
+  					<c:out value="${ user.name}" />
+   					<img src="subscribers.jpeg" alt="subscribers" style="width:30px;">
+   					<c:out value="${ user.userPlaylist.subsrib.size()}" />
+  					<form action="viewAll" method="get" name = "${ user.name}">
+						<input type="submit" style="background-color:red;" value="View all">
+					</form>
 	<form action="changeUsername" method="post">
 		<h3>Change username:</h3>
 		<input type="submit" value="Change">
