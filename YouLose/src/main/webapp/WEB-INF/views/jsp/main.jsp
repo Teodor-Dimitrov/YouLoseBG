@@ -27,13 +27,28 @@
 		<jsp:include page="left.jsp" />
 	</td>
 	<td>
-		<form method="POST" enctype="multipart/form-data">
-			Upload video:<br>
-			<input type="file" id="video" name="video" accept="video/*"><br>
-			<input type="text" placeholder="Name"	name="videoName" required="required"> <br>
-			<input type="text" placeholder="Description"	name="description" required="required"> <br>
-			<input type="submit" value="Upload">
-		</form>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+						<div class="card card-signup">
+							<form class="form" action="login" method="post">
+								<h3 class="text-divider"><b><i>Upload video</i></b></h3>
+								<img src="./static/img/upload.ico" alt="upload" style="width: 75px; height:;">
+								<div class="content">
+								<input type="file" id="video" name="video" accept="video/*"><br>
+									<div class="input-group">
+										<center><input type="text" required="required" name="email" type="email" class="form-control" placeholder="Name..."></center>
+									</div>
+									<div class="input-group">
+										<center><input type="password" placeholder="Description..." name="password" required="required"class="form-control" /></center>
+									</div>
+									<center><input type="submit" value="Upload"></center>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 	</td>
 	</table>
 </body>
