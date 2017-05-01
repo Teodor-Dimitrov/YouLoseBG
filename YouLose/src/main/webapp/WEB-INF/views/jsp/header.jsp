@@ -5,6 +5,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style>
+	.search-engine{
+		dipslay:inline-block;
+		position:relative;
+		width:60%;
+		float:left;
+	}
+	.nav-bar-custom{
+		display:inline-block;
+		position:relative;
+		width:40%;
+		fload:left;
+	}
+	.nav-bar-custom table {
+	    float:right;
+	}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>header</title>
 
@@ -24,7 +41,25 @@
 			<c:set var="link2" scope="session" value="login" />
 			<c:set var="link3" scope="session" value="login" />
 	</c:if>
-	<div align="right">
+	<table class="search-engine">
+		<tr>
+			<td><img src="./static/img/youlose.png" alt="logo"
+				style="width: 175px; height:100px;"></td>
+			
+			<td>
+				<form action="search" method="get">
+					<input type="text" placeholder="Search" name="serchWord" required="required" style="width: 250px;">
+					 <select name="searched" style="width: 150px;">
+						    <option value="video">Videos</option>
+						    <option value="user">Users</option>
+						    <option value="playlist">Playlists</option>
+					  </select>
+					<input type="submit" value="Search"> 
+				</form>
+			</td>
+		</tr>
+	</table>
+	<div class="nav-bar-custom">
 		<c:if test="${user != null}">
 			<c:out value="${username}" />
 			</c:if>
@@ -51,26 +86,5 @@
 		
 	</div>
 
-	<table>
-		<tr>
-			<td><img src="./static/img/youlose.png" alt="logo"
-				style="width: 175px; height:100px;"></td>
-			
-			<td>
-				<form action="search" method="get">
-					<input type="text" placeholder="Search" name="serchWord" required="required" style="width: 250px;">
-					 <select name="searched" style="width: 150px;">
-						    <option value="video">Videos</option>
-						    <option value="user">Users</option>
-						    <option value="playlist">Playlists</option>
-					  </select>
-					<input type="submit" value="Search"> 
-				</form>
-			</td>
-		</tr>
-	</table>
-	<hr>
-
-</body>
 </body>
 </html>
