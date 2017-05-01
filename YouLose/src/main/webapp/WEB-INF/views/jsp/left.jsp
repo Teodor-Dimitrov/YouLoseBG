@@ -20,25 +20,41 @@
 
 </head>
 <body>
+
+	<c:set var="home" scope="session" value="login" />
+	<c:set var="profile" scope="session" value="login" />
+	<c:set var="forLater" scope="session" value="login" />
+	<c:set var="watched" scope="session" value="login" />
+	<c:set var="liked" scope="session" value="login" />
+	<c:set var="subscriptions" scope="session" value="login" />
+
+		<c:if test="${user != null}">
+			<c:set var="home" scope="session" value="index" />
+			<c:set var="profile" scope="session" value="profile" />
+			<c:set var="forLater" scope="session" value="forLater" />
+			<c:set var="watched" scope="session" value="watched" />
+			<c:set var="liked" scope="session" value="liked" />
+			<c:set var="subscriptions" scope="session" value="subscriptions" />
+	</c:if>
 <table>
 		<td>
-		<form action="index" method="get">
+		<form action="${home} " method="get">
 				<input type="submit" value="Home" class="btn btn-simple btn-primary btn-lg" style="color:white">
 		</form>
 		
-		<form action="profile" method="get">
+		<form action="${profile} " method="get">
 				<input type="submit" value="My profile" class="btn btn-simple btn-primary btn-lg" style="color:white">
 		</form>
-		<form action="forLater" method="get">
+		<form action="${forLater} " method="get">
 				<input type="submit" value="Watch later" class="btn btn-simple btn-primary btn-lg" style="color:white">
 		</form>
-		<form action="watched" method="get">
+		<form action="${watched} " method="get">
 				<input type="submit" value="Watched" class="btn btn-simple btn-primary btn-lg" style="color:white">
 		</form>
-		<form action="liked" method="get">
+		<form action="${liked} " method="get">
 				<input type="submit" value="Liked" class="btn btn-simple btn-primary btn-lg" style="color:white">
 		</form>
-		<form action="subscriptions" method="get">
+		<form action="${ subscriptions}" method="get">
 				<input type="submit" value="Subscriptions" class="btn btn-simple btn-primary btn-lg" style="color:white">
 		</form>
 		</td>
