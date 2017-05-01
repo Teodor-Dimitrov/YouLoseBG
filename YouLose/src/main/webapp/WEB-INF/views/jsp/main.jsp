@@ -31,16 +31,16 @@
 				<div class="row">
 					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
 						<div class="card card-signup">
-							<form class="form" action="login" method="post">
+							<form class="form" action="main" method="post" enctype="multipart/form-data">
 								<h3 class="text-divider"><b><i>Upload video</i></b></h3>
 								<img src="./static/img/upload.ico" alt="upload" style="width: 75px; height:;">
 								<div class="content">
 								<input type="file" id="video" name="video" accept="video/*"><br>
 									<div class="input-group">
-										<center><input type="text" required="required" name="email" type="email" class="form-control" placeholder="Name..."></center>
+										<center><input type="text" class="form-control" placeholder="Name..." name = "videoName" required="required"></center>
 									</div>
 									<div class="input-group">
-										<center><input type="password" placeholder="Description..." name="password" required="required"class="form-control" /></center>
+										<center><input type="text" placeholder="Description..." name="description" required="required" class="form-control" /></center>
 									</div>
 									<center><input type="submit" value="Upload"></center>
 								</div>
