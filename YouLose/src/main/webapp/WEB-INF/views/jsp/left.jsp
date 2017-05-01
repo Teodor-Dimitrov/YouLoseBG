@@ -23,7 +23,7 @@
 <table>
 		<td>
 		<form action="index" method="get">
-				<input type="submit" value="Home"class="btn btn-simple btn-primary btn-lg" style="color:white">
+				<input type="submit" value="Home" class="btn btn-simple btn-primary btn-lg" style="color:white">
 		</form>
 		
 		<form action="profile" method="get">

@@ -37,7 +37,7 @@
 				<div class="row">
 					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
 						<div class="card card-signup">
-							<form class="form" action="register" method="post">
+							<form class="form" action="login" method="post">
 								<p class="text-divider">Please, Log in</p>
 								<div class="content">
 									<div class="input-group">
@@ -55,13 +55,12 @@
 									</div>
 									
 								</div>
-								
-							</form>
-							<form action="login" method="get">
-							<div class="footer text-center">
+								<div class="footer text-center">
 									<input type="submit"  value="Log in" class="btn btn-simple btn-primary btn-lg">
+									
 								</div>
-								</form>
+							</form>
+				
 								<form action="register" method="get">
 							<div class="footer text-center">
 									<input type="submit"  value=" Register here" class="btn btn-simple btn-primary btn-lg">

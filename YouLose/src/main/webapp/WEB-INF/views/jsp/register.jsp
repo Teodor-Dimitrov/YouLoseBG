@@ -45,7 +45,7 @@
 										<span class="input-group-addon">
 											<i class="material-icons">email</i>
 										</span>
-										<input type="text" required="required" name="email" type="email" class="form-control" placeholder="Email...">
+										<input required="required" name="email" type="email" class="form-control" placeholder="Email...">
 									</div>
 
 									<div class="input-group">
@@ -62,13 +62,11 @@
 			required="required" placeholder="Confirm Password..." class="form-control" />
 									</div>
 								</div>
-								
-							</form>
-							<form action="login" method="get">
-							<div class="footer text-center">
-									<input type="submit"  value="Get Started" class="btn btn-simple btn-primary btn-lg">
+								<div class="footer text-center">
+									<input type="submit"  value="Already registered?Login here" class="btn btn-simple btn-primary btn-lg">
 								</div>
 							</form>
+
 						</div>
 					</div>
 				</div>
