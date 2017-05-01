@@ -28,7 +28,7 @@ function playPause(btn,vid){
 <body>
 <div id="video_player_box">
   <video id="my_video" width="550" height="300" autoplay>
-    <source src="${videoName} ">
+    <source src="video/+${videoName} ">
   </video>
   <div id="video_controls_bar">
     <button id="playpausebtn" onclick="playPause(this,'my_video')">Pause</button>

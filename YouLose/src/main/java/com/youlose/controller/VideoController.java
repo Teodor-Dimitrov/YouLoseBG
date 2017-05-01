@@ -25,7 +25,7 @@ import com.youlose.model.User;
 import com.youlose.model.Video;
 
 @Controller
-@SessionAttributes("filename")
+@SessionAttributes("videoName")
 @MultipartConfig
 public class VideoController {
 
@@ -33,21 +33,21 @@ public class VideoController {
 			+ File.separator;
 
 	@RequestMapping(value = "main", method = RequestMethod.POST)
-	public String uploadVideo(@RequestParam("videoFile") MultipartFile multiPartFile,
-			@RequestParam("videoName") String name, @RequestParam("userId") int userID,
-			@RequestParam("description") String description, HttpSession session, Model model) throws IOException {
-
+	public String uploadVideo(@RequestParam("video") MultipartFile multiPartFile,
+			@RequestParam("videoName") String name,
+			@RequestParam("description") String description,
+			HttpSession session,
+			Model model) throws IOException {
 		User user = (User) session.getAttribute("user");
-		System.out.println("offf");
-		File fileD = new File(FILE_LOC + name + ".mp4");
+		File fileD = new File(FILE_LOC + user.getUserID()+"_" + name + ".mp4");
 		fileD.createNewFile();
 		Files.copy(multiPartFile.getInputStream(), fileD.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		Video video = new Video();
-		String videoPath = multiPartFile.getOriginalFilename();
+		//String videoPath = multiPartFile.getOriginalFilename();
 		video.setDescription(description);
 		video.setDate(LocalDateTime.now());
 		video.setName(name);
-		video.setPath(FILE_LOC + name + ".mp4");
+		video.setPath(user.getUserID() +"_" + name + ".mp4");
 		video.setViews(1);
 
 		try {
@@ -59,9 +59,8 @@ public class VideoController {
 			return "error";
 		}
 
-		session.setAttribute("photo", FILE_LOC + multiPartFile.getOriginalFilename());
-		model.addAttribute("filename", multiPartFile.getOriginalFilename());
-		return "videoUpload";
+		model.addAttribute("videoName", FILE_LOC + multiPartFile.getOriginalFilename());
+		return "videoPlay";
 
 	}
 

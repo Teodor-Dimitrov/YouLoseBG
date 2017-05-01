@@ -40,8 +40,8 @@
 								<p class="text-divider"><b><i>Profile data</i></b></p>
 								<div class="content">
 								<div>
-									<center><img src="/profilePics/${user.username}.jpg" alt="profile picture" style="width:120px;heigth;"></center>
-  										<center><c:out value="${user.username} }" /></center></br>
+									<center><img src="${sessionScope.user.profilePicture}" alt="profile picture" style="width:120px;heigth;"></center>
+  										<center><c:out value="${sessionScope.user.username} }" /></center></br>
   											<center><c:out value="Subscribers:" />
   											 <img src="subscribers.jpeg" alt="subscribers" style="width:30px;">
     										<c:out value="4" />

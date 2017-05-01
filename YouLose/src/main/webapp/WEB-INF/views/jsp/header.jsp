@@ -54,11 +54,8 @@
 	<table>
 		<tr>
 			<td><img src="./static/img/youlose.png" alt="logo"
-				style="width: 75px; height:;"></td>
-			<td>
-			<font style="color:grey"  face="Helvetica Rounded Bold" size="7">YouLose</font>
+				style="width: 175px; height:100px;"></td>
 			
-			</td>
 			<td>
 				<form action="search" method="get">
 					<input type="text" placeholder="Search" name="serchWord" required="required" style="width: 250px;">
