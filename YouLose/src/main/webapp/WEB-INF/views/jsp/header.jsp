@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+       <%@ page errorPage="errorPage.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>header</title>
+
 </head>
-<body bgcolor="lightgreen">
+<body  style="background-image: url('./static/img/bg2.jpeg'); background-size: cover; background-position: top center;">
 	<c:set var="button1" scope="session" value="Home" />
 	<c:set var="button2" scope="session" value="Log out" />
 	<c:set var="button3" scope="session" value="Upload" />
@@ -31,17 +33,17 @@
 			
 				<td>
 					<form action="${link1}" method="get">
-						<input type="submit" value="${button1}">
+						<input type="submit" value="${button1}" class="btn btn-simple btn-primary btn-lg" style="color:white">
 					</form>
 				</td>
 				<td>
 					<form action=" ${link2} " method="get">
-						<input type="submit" value="${button2} ">
+						<input type="submit" value="${button2} "class="btn btn-simple btn-primary btn-lg"  style="color:white">
 					</form>
 				</td>
 				<td>
 					<form action=" ${link3}" method="get">
-						<input type="submit" value="${button3} ">
+						<input type="submit" value="${button3} "class="btn btn-simple btn-primary btn-lg" style="color:white">
 					</form>
 				</td>
 			</tr>
@@ -51,9 +53,11 @@
 
 	<table>
 		<tr>
-			<td><img src="youlose.png" alt="logo"
-				style="width: 75px; height;"></td>
-			<td><font face="Helvetica Rounded Bold" size="7">YouLose</font>
+			<td><img src="./static/img/youlose.png" alt="logo"
+				style="width: 75px; height:;"></td>
+			<td>
+			<font style="color:grey"  face="Helvetica Rounded Bold" size="7">YouLose</font>
+			
 			</td>
 			<td>
 				<form action="search" method="get">

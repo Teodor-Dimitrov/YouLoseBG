@@ -11,7 +11,7 @@
 <body>
 <div class='fill-screen'>
     <img class='make-it-fit' 
-         src='error.png' style="height: auto; 
+         src='./static/img/error.png' style="height: auto; 
     width: 100%;">
 </div>
 </body>
