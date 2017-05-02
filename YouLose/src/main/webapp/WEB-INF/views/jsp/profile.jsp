@@ -23,8 +23,12 @@
     <link href="/MyProject/static/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/MyProject/static/css/material-kit.css" rel="stylesheet"/>
 </head>
-
-<jsp:include page="header.jsp" />
+<body>
+			<c:set var="profilePic" scope="session" value="/MyProject/profile_pictures/${user.profilePicture}" />
+		<c:if test="${user.profilePicture == null}">
+			<c:set var="profilePic" scope="session" value="/MyProject/static/img/default.png" />
+		</c:if>
+	<jsp:include page="header.jsp" />
 <table >
 		<td>
 			<jsp:include page="left.jsp" />
@@ -40,22 +44,18 @@
 								<p class="text-divider"><b><i>Profile data</i></b></p>
 								<div class="content">
 								<div>
-									<center><img src="${user.profilePicture}" alt="profile picture" style="width:120px;heigth;"></center>
-  										<center><c:out value="${user.name} " /></center></br>
+									<center><img src="${profilePic}" alt="profile picture" style="width:120px;heigth;"></center>
+  										<center><c:out value="${user.name} " /></center>
   											<center><c:out value="Subscribers:" />
   											 <img src="/MyProject/static/img/subscribers.jpeg" alt="subscribers" style="width:30px;">
     										<c:out value="${user.subscribers.size() }" />
- 									 		<form action="{user.name}/subscriptions" method="get" name = "${user.name }Subscribers">
-											<input type="submit" style="background-color:red;" value="view all">
-											</form>
+ 									 		
 													</center>				
 								</div>
 								</div>
 							</form>
 									<form action="changeProfilePicture" method="post">
 									<div class="footer text-center">
-							
-										
 										<input type="submit" value="Change profile picture"  class="btn btn-simple btn-primary btn-lg">
 											<center><input  type="file" id="file" name="profilePicture" accept="image/*"></center>
 											</div>
@@ -68,7 +68,7 @@
 								</form>
 							<form action="changeEmail" method="get">
 								<div class="footer text-center">
-									<input type="submit"  value=" Change E-mail" class="btn btn-simple btn-primary btn-lg">
+									<input type="submit"  value="Change E-mail" class="btn btn-simple btn-primary btn-lg">
 								</div>
 							</form>
 							<form action="changePassword" method="get">

@@ -18,7 +18,7 @@ public class User {
 	private long userID;
 	private String profilePicture;
 	private HashMap<String, Playlist> userPlaylist;
-	public static final String DEFAULT_PROFILE_PIC = "profile_pictures/default.png";
+	public static final String DEFAULT_PROFILE_PIC = "/MyProject/static/img/default.png";
 	private  HashMap<String, User> subscribers;
 
 	public HashMap<String, Playlist> getUserPlaylist() {

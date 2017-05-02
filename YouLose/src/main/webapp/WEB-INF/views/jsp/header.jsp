@@ -32,7 +32,7 @@
 	<c:set var="button3" scope="session" value="Upload" />
 	<c:set var="link1" scope="session" value="index" />
 	<c:set var="link2" scope="session" value="logout" />
-	<c:set var="link3" scope="session" value="uploadVideo" />
+	<c:set var="link3" scope="session" value="main" />
 	<c:if test="${user == null}">
 			<c:set var="button1" scope="session" value="Register" />
 			<c:set var="button2" scope="session" value="Log in" />
