@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.HashMap;
@@ -77,7 +78,7 @@ public class VideoDAO {
 		Timestamp time = java.sql.Timestamp.from(instant);
         int videoID=0;
 		PreparedStatement ps = null;
-		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ps = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, video.getName());
 		ps.setString(2, video.getPath());
 		ps.setInt(3, video.getViews());
