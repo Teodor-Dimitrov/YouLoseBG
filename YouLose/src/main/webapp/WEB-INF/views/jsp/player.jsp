@@ -12,27 +12,14 @@
 		div#video_player_box{ width:550px; background:#000; margin:0px auto;}
 		div#video_controls_bar{ background: #333; padding:10px;}
 	</style>
-<script>
-function playPause(btn,vid){
-	var vid = document.getElementById(vid);
-	if(vid.paused){
-		vid.play();
-		btn.innerHTML = "Pause";
-	} else {
-		vid.pause();
-		btn.innerHTML = "Play";
-	}
-}
-</script>
+
 </head>
 <body>
 <div id="video_player_box">
-  <video id="my_video" width="550" height="300" autoplay>
+  <video id="my_video" width="550" height="300" controls>
     <source src="video/${videoPath}">
   </video>
-  <div id="video_controls_bar">
-    <button id="playpausebtn" onclick="playPause(this,'my_video')">Pause</button>
-  </div>
+ 
 </div>
 </body>
 </html>
