@@ -83,9 +83,9 @@ public class UserController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return "register";
+			return "main";
 		}
-
+		s.setAttribute("ErrorMsg", msg);
 		return "register";
 	}
 
@@ -211,7 +211,7 @@ public class UserController {
 	@RequestMapping(value = "{user.name}/subscriptions", method = RequestMethod.GET)
 	public String getAllSubscriptions(@PathVariable("user.name") String username, HttpSession session) throws IOException, SQLException{
 		User user =(User) session.getAttribute("user");
-		ArrayList<Integer> users = UserDAO.getInstance().getSubscribers(user.getUserID());
+		ArrayList<Long> users = UserDAO.getInstance().getSubscribers(user.getUserID());
 		ArrayList<User> userSubscribers = new ArrayList();
 		for (int i = 0; i < users.size(); i++) {
 			userSubscribers.add(UserDAO.getInstance().getUserById(users.get(i)));

@@ -32,22 +32,27 @@ public class UserDAO {
 
 		PreparedStatement statement = null;
 		
-			String sql = "INSERT INTO users (email,username,password,profile_picture)" + "VALUES(?,?,?,?)";
-			statement = DBManager.getInstance().getConnection().prepareStatement(sql);
+			String sql = "INSERT INTO users (email,username,password,profile_picture)" + "VALUES(?,?,?,?);";
+			statement = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getName());
 			statement.setString(3, user.getPassword());
 			statement.setString(4, user.getProfilePicture());
-
+			
 			int rowsAffected = statement.executeUpdate();
+			ResultSet rs = statement.getGeneratedKeys();
+			while(rs.next()){
+				user.setUserID(rs.getInt(1));
+			}
+			for(String playlist : user.getPlaylists()){
+				PlaylistDAO.getInstance().createPlaylist(user.getUserID(), playlist);
+			}
 			if (rowsAffected > 0) {
 				System.out.println("Saving user is successful!!");
 				users.put(user.getEmail(), user);
 				return true;
 			}
-
-		
 		return false;
 	}
 
@@ -106,14 +111,14 @@ public class UserDAO {
 		}
 	}
 
-	public boolean subscribeUser(int subscriberID, int subscribedID) throws SQLException {
+	public boolean subscribeUser(long subscriberID, long subscribedID) throws SQLException {
 		if (subscribedID != 0) {
 			String sql = "INSERT into user_subscribers (users_user_id, users_subscriber_id) values (?,?);";
 			PreparedStatement ps = null;
 			
 				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-				ps.setInt(1, subscribedID);
-				ps.setInt(2, subscriberID);
+				ps.setLong(1, subscribedID);
+				ps.setLong(2, subscriberID);
 				int rows = ps.executeUpdate();
 				if (rows > 0) {
 					return true;
@@ -124,17 +129,17 @@ public class UserDAO {
 		return false;
 	}
 
-	public ArrayList<Integer> getSubscribers(int subscribedID) throws SQLException {
+	public ArrayList<Long> getSubscribers(long l) throws SQLException {
 		String sql = "SELECT users_subscriber_id from user_subscribers where users_user_id = ?;";
-		ArrayList<Integer> subscribers = new ArrayList<>();
+		ArrayList<Long> subscribers = new ArrayList<>();
 		PreparedStatement ps = null;
 
 		
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-			ps.setInt(1, subscribedID);
+			ps.setLong(1, l);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				subscribers.add(rs.getInt("users_subscriber_id"));
+				subscribers.add(rs.getLong("users_subscriber_id"));
 			}
 		
 		return subscribers;
@@ -155,15 +160,15 @@ public class UserDAO {
 		return subscribing;
 	}
 
-	public boolean unSubscribeUser(int subscriberID, int subscribedID) throws SQLException {
+	public boolean unSubscribeUser(long subscriberID, long subscribedID) throws SQLException {
 		if (subscribedID != 0) {
 			String sql = "DELETE from user_subscribers WHERE users_subscriber_id = ? AND users_user_id = ?;";
 			PreparedStatement ps = null;
 
 			
 				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-				ps.setInt(1, subscriberID);
-				ps.setInt(2, subscribedID);
+				ps.setLong(1, subscriberID);
+				ps.setLong(2, subscribedID);
 
 				int rows = ps.executeUpdate();
 
@@ -262,7 +267,7 @@ public class UserDAO {
 		return users;
 	}
 	
-	public User getUserById(int userId) throws SQLException{
+	public User getUserById(Long userId) throws SQLException{
 		String sql = "SELECT user_id, password, email, username, profile_picture FROM users WHERE id="+ userId + ";";
 		PreparedStatement st = null;
 		User user = new User();
@@ -278,4 +283,13 @@ public class UserDAO {
 	}
 			return  user;
 }
+	public void addVideoToPlaylist(Video video, User user, String playlist) throws SQLException{
+		PreparedStatement statement = null;
+		String sql = "INSERT INTO playlist_videos(videos_video_playlist_id, playlists_playlist_id) VALUE (?,?);";
+		statement = DBManager.getInstance().getConnection().prepareStatement(sql);
+		statement.setLong(1, video.getId());
+		statement.setLong(2, user.getUserID());
+		
+		statement.executeUpdate();
+	}
 }

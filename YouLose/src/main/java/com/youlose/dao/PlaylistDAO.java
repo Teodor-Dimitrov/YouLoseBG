@@ -3,6 +3,7 @@ package com.youlose.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +28,13 @@ public class PlaylistDAO {
 	}
 	
 
-	public int createPlaylist(int userID, String name) throws SQLException {
-		String sql = "insert into mydb.playlists (user_id, title) VALUES (?,?) ";
+	public int createPlaylist(long userID, String name) throws SQLException {
+		String sql = "INSERT INTO mydb.playlists (users_user1_id, name) VALUES (?,?) ";
 		int playlistID = 0;
 		PreparedStatement ps = null;
 		
-			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-			ps.setInt(1, userID);
+			ps = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, userID);
 			ps.setString(2, name);
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
@@ -44,12 +45,12 @@ public class PlaylistDAO {
 		return playlistID;
 	}
 	
-	public void addVideoToPlayList(int playlistID, int videoID) throws SQLException {
+	public void addVideoToPlayList(long playlistID, long videoID) throws SQLException {
 		String sql = "insert into mydb.playlist_videos (videos_video_playlist_id, playlists_playlist_id) VALUES (?,?)";
 		PreparedStatement ps = null;
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, videoID);
-		ps.setInt(2, playlistID);
+		ps.setLong(1, videoID);
+		ps.setLong(2, playlistID);
 		ps.executeUpdate();
 	}
 	
@@ -113,12 +114,12 @@ public class PlaylistDAO {
 		return videos;
 	}
 	
-	 public boolean existPlaylist(String name , int userID) throws SQLException {
+	 public boolean existPlaylist(String name , long userID) throws SQLException {
 			String sql = "SELECT user_id,name FROM mydb.playlist WHERE user_id=? AND name=?;";
 			PreparedStatement ps = null;
 
 				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-				ps.setInt(1, userID);
+				ps.setLong(1, userID);
 				ps.setString(2, name);
 				ResultSet rs = ps.executeQuery();
 			

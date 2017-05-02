@@ -52,7 +52,6 @@ public class VideoController {
 		video.setName(name);
 		video.setPath(openedVid);
 		video.setViews(1);
-
 		try {
 			VideoDAO.getInstance().addVideo(video, user);
 
@@ -72,7 +71,7 @@ public class VideoController {
 	@ResponseBody
 	public void playVideo(@PathVariable("videoPath") String fileName, HttpServletResponse resp, Model model, HttpSession session) throws IOException{
 		User user =(User) session.getAttribute("user");
-		System.out.println(user.getName());
+		System.out.println(user.getName()); 
 		File file = new File(FILE_LOC + openedVid);
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}

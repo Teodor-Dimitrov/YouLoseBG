@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Playlist {
 
-	private int playlistID;
-	private int userID;
+	private long playlistID;
+	private long userID;
 	private String name;
 	private ArrayList<Video> videos;
 
@@ -13,19 +13,19 @@ public class Playlist {
 		this.videos = new ArrayList<>();
 	}
 
-	public int getPlaylistID() {
+	public long getPlaylistID() {
 		return playlistID;
 	}
 
-	public void setPlaylistID(int playlistID) {
+	public void setPlaylistID(long playlistID) {
 		this.playlistID = playlistID;
 	}
 
-	public int getUserID() {
+	public long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(long userID) {
 		this.userID = userID;
 	}
 
@@ -37,4 +37,7 @@ public class Playlist {
 		this.name = name;
 	}
 
+	public void addVideoToPlaylist(Video video){
+		videos.add(video);
+	}
 }

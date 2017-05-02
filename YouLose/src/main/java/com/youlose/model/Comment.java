@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 
 public class Comment {
 
-	private int commentID;
-	private int videoID;
-	private int userID;
+	private long commentID;
+	private long videoID;
+	private long userID;
 	private String content;
 	private LocalDateTime postedDate;
 
@@ -15,27 +15,27 @@ public class Comment {
 
 	}
 
-	public int getCommentID() {
+	public long getCommentID() {
 		return commentID;
 	}
 
-	public void setCommentID(int commentID) {
+	public void setCommentID(long commentID) {
 		this.commentID = commentID;
 	}
 
-	public int getVideoID() {
+	public long getVideoID() {
 		return videoID;
 	}
 
-	public void setVideoID(int videoID) {
+	public void setVideoID(long videoID) {
 		this.videoID = videoID;
 	}
 
-	public int getUserID() {
+	public long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(long userID) {
 		this.userID = userID;
 	}
 

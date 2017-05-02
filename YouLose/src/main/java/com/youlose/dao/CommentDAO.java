@@ -24,7 +24,7 @@ public class CommentDAO {
 		return instance;
 	}
 
-	public synchronized boolean addComment(String content, int userID, int videoID) throws SQLException {
+	public synchronized boolean addComment(String content, long userID, long videoID) throws SQLException {
 		String sql = "INSERT into mydb.comments (users_user_comment_id, content, posted, videos_video_comment_id) "
 				+ "values (?,?,?,?)";
 		PreparedStatement ps = null;
@@ -32,10 +32,10 @@ public class CommentDAO {
 		Timestamp time = java.sql.Timestamp.from(instant);
 		
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-			ps.setInt(1, userID);
+			ps.setLong(1, userID);
 			ps.setString(2, content);
 			ps.setTimestamp(3, time);
-			ps.setInt(4, videoID);
+			ps.setLong(4, videoID);
 			int rows = ps.executeUpdate();
 			if (rows > 0) {
 				return true;
@@ -69,22 +69,22 @@ public class CommentDAO {
 	}
 
 	// 1 for like
-	public void likeComment(int userID, int commentID) throws SQLException {
+	public void likeComment(long userID, long commentID) throws SQLException {
 		String sql = "INSERT INTO comment_liked_disliked (comments_comment_id, users_user_comment_liked_id,like_or_dislike) VALUES (?,?,?);";
 		PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, userID);
-		ps.setInt(2, commentID);
+		ps.setLong(1, userID);
+		ps.setLong(2, commentID);
 		ps.setInt(3, 1);
 		ps.executeUpdate();
 
 	}
 
 	// 2 for dislike
-	public void dislikeComment(int commentID, int userID) throws SQLException {
+	public void dislikeComment(long commentID, long userID) throws SQLException {
 		String sql = "INSERT INTO comment_liked_disliked (comments_comment_id, users_user_comment_liked_id,like_or_dislike) VALUES (?,?,?);";
 		PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, userID);
-		ps.setInt(2, commentID);
+		ps.setLong(1, userID);
+		ps.setLong(2, commentID);
 		ps.setInt(3, 2);
 		ps.executeUpdate();
 	}

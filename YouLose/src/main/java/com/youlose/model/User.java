@@ -4,13 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 public class User {
 
 	private String email;
 	private String password;
 	private String name;
-	private int userID;
+	private long userID;
 	private String profilePicture;
 	private HashMap<String, Playlist> userPlaylist;
 	public static final String DEFAULT_PROFILE_PIC = "profile_pictures/default.png";
@@ -21,7 +22,7 @@ public class User {
 		this.userPlaylist.put("uploaded", new Playlist());
 		this.userPlaylist.put("watched", new Playlist());
 		this.userPlaylist.put("watchLater", new Playlist());
-		this.userPlaylist.put("subsrib", new Playlist());
+		//this.userPlaylist.put("subsrib", new Playlist());
 	
 	
 	}
@@ -50,11 +51,11 @@ public class User {
 		this.name = name;
 	}
 
-	public int getUserID() {
+	public long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(long userID) {
 		this.userID = userID;
 	}
 
@@ -66,4 +67,14 @@ public class User {
 		this.profilePicture = profilePicture;
 	}
 
+	public void addToPlaylistByName(String name, Video video){
+		if(this.userPlaylist.containsKey(name)){
+			this.userPlaylist.get(name).addVideoToPlaylist(video);
+		}
+		System.out.println("no such playlist");
+	}
+	public Set<String> getPlaylists(){
+		return this.userPlaylist.keySet();
+	}
+	
 }

@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Video {
 
-	private int id;
+	private long id;
 	private String name;
 	private File video;
 	private int views;
@@ -26,11 +26,11 @@ public class Video {
 	}
 
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

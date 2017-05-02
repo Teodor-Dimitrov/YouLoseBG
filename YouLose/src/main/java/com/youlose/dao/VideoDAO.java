@@ -72,11 +72,10 @@ public class VideoDAO {
 		return allVideos;
 	}
 
-	public synchronized int addVideo(Video video, User user) throws SQLException {
+	public synchronized long addVideo(Video video, User user) throws SQLException {
 		String sql = "INSERT INTO videos (name, path, views,date,description) VALUES (?,?,?,?,?);";
 		Instant instant = Instant.now();
 		Timestamp time = java.sql.Timestamp.from(instant);
-        int videoID=0;
 		PreparedStatement ps = null;
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, video.getName());
@@ -84,20 +83,22 @@ public class VideoDAO {
 		ps.setInt(3, video.getViews());
 		ps.setTimestamp(4, time);
 		ps.setString(5, video.getDescription());
+		
+		ps.executeUpdate();
 		ResultSet rs = ps.getGeneratedKeys();
-		while(rs.next()){
-			videoID = rs.getInt(1);
-		}
-		return videoID;
+		rs.next();
+		video.setId(rs.getLong(1));
+		UserDAO.getInstance().addVideoToPlaylist(video, user, "uploaded");
+		return video.getId();
 	}
 
-	public synchronized void likeVideo(int videoID, int userID) throws SQLException {
+	public synchronized void likeVideo(long videoID, long userID) throws SQLException {
 		String sql = "INSERT INTO video_liked_or_disliked (users_user_id, videos_videos_id,like_or_dislike) VALUES (?,?,?);";
 		PreparedStatement ps = null;
 
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, userID);
-		ps.setInt(2, videoID);
+		ps.setLong(1, userID);
+		ps.setLong(2, videoID);
 		ps.setInt(3, 1);
 		int rows = ps.executeUpdate();
 		if (rows > 0) {
@@ -106,13 +107,13 @@ public class VideoDAO {
 
 	}
 
-	public synchronized void dislikeVideo(int videoID, int userID) throws SQLException {
+	public synchronized void dislikeVideo(long videoID, long userID) throws SQLException {
 		String sql = "INSERT INTO video_liked_or_disliked (users_user_id, videos_videos_id,like_or_dislike) VALUES (?,?,?);";
 		PreparedStatement ps = null;
 
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, userID);
-		ps.setInt(2, videoID);
+		ps.setLong(1, userID);
+		ps.setLong(2, videoID);
 		ps.setInt(3, 2);
 		int rows = ps.executeUpdate();
 		if (rows > 0) {
@@ -127,8 +128,8 @@ public class VideoDAO {
 		PreparedStatement ps = null;
 
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, user.getUserID());
-		ps.setInt(2, video.getId());
+		ps.setLong(1, user.getUserID());
+		ps.setLong(2, video.getId());
 		int rows = ps.executeUpdate();
 		if (rows > 0) {
 			System.out.println("mahnat e like-a");
@@ -141,8 +142,8 @@ public class VideoDAO {
 		PreparedStatement ps = null;
 
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-		ps.setInt(1, user.getUserID());
-		ps.setInt(2, video.getId());
+		ps.setLong(1, user.getUserID());
+		ps.setLong(2, video.getId());
 		int rows = ps.executeUpdate();
 		if (rows > 0) {
 			System.out.println("mahnat e dislike-a");
@@ -155,7 +156,7 @@ public class VideoDAO {
 			String sql = "DELETE FROM videos WHERE videos_id=?;";
 			PreparedStatement ps = null;
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
-			ps.setInt(1, video.getId());
+			ps.setLong(1, video.getId());
 			int rows = ps.executeUpdate();
 			if (rows > 0) {
 				for (Entry<String, Video> entry : allVideos.entrySet()) {
@@ -184,8 +185,7 @@ public class VideoDAO {
 
 	public void deleteComment(Comment comment) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement st = con
-				.prepareStatement("DELETE FROM comments WHERE comment_id= " + comment.getCommentID() + ";");
+		PreparedStatement st = con.prepareStatement("DELETE FROM comments WHERE comment_id= " + comment.getCommentID() + ";");
 		st.executeUpdate();
 
 	}

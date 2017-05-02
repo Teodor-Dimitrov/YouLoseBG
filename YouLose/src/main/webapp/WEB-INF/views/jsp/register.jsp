@@ -63,9 +63,15 @@
 									</div>
 								</div>
 								<div class="footer text-center">
-									<input type="submit"  value="Already registered?Login here" class="btn btn-simple btn-primary btn-lg">
+									<input type="submit"  value="Register" class="btn btn-simple btn-primary btn-lg">
 								</div>
 							</form>
+							<form class="form" action="login" method="get">
+								<div class="footer text-center">
+									<input type="submit"  value="Already have an account?" class="btn btn-simple btn-primary btn-lg">
+								</div>
+							</form>
+							
 
 						</div>
 					</div>
