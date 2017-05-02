@@ -29,14 +29,14 @@ public class VideoDAO {
 	}
 
 	public HashMap<String, Video> getAllVideos() throws SQLException {
-		String sql = "SELECT videos_id, name, path, views,date,description FROM videos;";
+		String sql = "SELECT video_id, name, path, views,date,description FROM videos;";
 		PreparedStatement st = null;
 		if (allVideos.isEmpty()) {
 			st = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 				Video video = new Video();
-				video.setId(res.getInt("videos_id"));
+				video.setId(res.getLong("video_id"));
 				video.setName(res.getString("name"));
 				video.setPath(res.getString("path"));
 				video.setViews(res.getInt("views"));
