@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>${videoName}</title>
+<title>${videoPath}</title>
 	<style>
 		div#video_player_box{ width:550px; background:#000; margin:0px auto;}
 		div#video_controls_bar{ background: #333; padding:10px;}
@@ -28,7 +28,7 @@ function playPause(btn,vid){
 <body>
 <div id="video_player_box">
   <video id="my_video" width="550" height="300" autoplay>
-    <source src="video/+${videoName} ">
+    <source src="video/${videoPath}">
   </video>
   <div id="video_controls_bar">
     <button id="playpausebtn" onclick="playPause(this,'my_video')">Pause</button>

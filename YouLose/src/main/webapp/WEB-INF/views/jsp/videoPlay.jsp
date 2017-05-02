@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>${videoName}</title>
+<title>${videoPath}</title>
 <meta charset="utf-8" />
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
@@ -30,10 +30,7 @@
 		<td>
 			<jsp:include page="player.jsp" />
 			
-		<c:forEach var ="video" items="${videoComments}" begin="0" end="videoCommnets.size()-1">
-  		 <c:out value="${comment.userID.name }": /> <c:out value="${comment.postedDate }": /></br>
-  		  <c:out value="${comment.content }"/></br>
-		</c:forEach>
+		
 	</td>
 </table>
 </body>

@@ -8,10 +8,12 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,12 +27,12 @@ import com.youlose.model.User;
 import com.youlose.model.Video;
 
 @Controller
-@SessionAttributes("videoName")
 @MultipartConfig
 public class VideoController {
 
 	private static final String FILE_LOC = "D:" + File.separator + "Uploads" + File.separator + "videos"
 			+ File.separator;
+	private String openedVid;
 
 	@RequestMapping(value = "main", method = RequestMethod.POST)
 	public String uploadVideo(@RequestParam("video") MultipartFile multiPartFile,
@@ -39,7 +41,8 @@ public class VideoController {
 			HttpSession session,
 			Model model) throws IOException {
 		User user = (User) session.getAttribute("user");
-		File fileD = new File(FILE_LOC + user.getUserID()+"_" + name + ".mp4");
+		openedVid = user.getUserID() + "_" + name +".mp4";
+		File fileD = new File(FILE_LOC + openedVid);
 		fileD.createNewFile();
 		Files.copy(multiPartFile.getInputStream(), fileD.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		Video video = new Video();
@@ -47,7 +50,7 @@ public class VideoController {
 		video.setDescription(description);
 		video.setDate(LocalDateTime.now());
 		video.setName(name);
-		video.setPath(user.getUserID() +"_" + name + ".mp4");
+		video.setPath(openedVid);
 		video.setViews(1);
 
 		try {
@@ -59,9 +62,19 @@ public class VideoController {
 			return "error";
 		}
 
-		model.addAttribute("videoName", FILE_LOC + multiPartFile.getOriginalFilename());
+		session.setAttribute("videoPath", openedVid);
+		System.out.println(openedVid);
 		return "videoPlay";
 
+	}
+	
+	@RequestMapping(value = "video/{videoPath}", method = RequestMethod.GET)
+	@ResponseBody
+	public void playVideo(@PathVariable("videoPath") String fileName, HttpServletResponse resp, Model model, HttpSession session) throws IOException{
+		User user =(User) session.getAttribute("user");
+		System.out.println(user.getName());
+		File file = new File(FILE_LOC + openedVid);
+		Files.copy(file.toPath(), resp.getOutputStream());
 	}
 
 	@ResponseBody
