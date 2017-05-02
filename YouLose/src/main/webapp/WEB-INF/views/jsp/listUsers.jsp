@@ -15,12 +15,13 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 	<!-- CSS Files -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/static/css/material-kit.css" rel="stylesheet"/>
+
+    <link href="/MyProject/static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/MyProject/static/css/material-kit.css" rel="stylesheet"/>
+
 </head>
 <body>
 <jsp:include page="header.jsp" />
-
 <table>
 		<td>
 			<jsp:include page="left.jsp" />

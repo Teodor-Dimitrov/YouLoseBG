@@ -26,7 +26,7 @@
 <title>header</title>
 
 </head>
-<body  style="background-image: url('./static/img/bg2.jpeg'); background-size: cover; background-position: top center;">
+<body  style="background-image: url('/MyProject/static/img/bg2.jpeg'); background-size: cover; background-position: top center;">
 	<c:set var="button1" scope="session" value="Home" />
 	<c:set var="button2" scope="session" value="Log out" />
 	<c:set var="button3" scope="session" value="Upload" />
@@ -43,12 +43,12 @@
 	</c:if>
 	<table class="search-engine">
 		<tr>
-			<td><img src="./static/img/youlose.png" alt="logo"
+			<td><img src="/MyProject/static/img/youlose.png" alt="logo"
 				style="width: 175px; height:100px;"></td>
 			
 			<td>
 				<form action="search" method="get">
-					<input type="text" placeholder="Search" name="serchWord" required="required" style="width: 250px;">
+					<input type="text" placeholder="Search" name="searchWord" required="required" style="width: 250px;">
 					 <select name="searched" style="width: 150px;">
 						    <option value="video">Videos</option>
 						    <option value="user">Users</option>
@@ -65,7 +65,6 @@
 			</c:if>
 		<table>
 			<tr>
-			
 				<td>
 					<form action="${link1}" method="get">
 						<input type="submit" value="${button1}" class="btn btn-simple btn-primary btn-lg" style="color:white">
@@ -83,8 +82,6 @@
 				</td>
 			</tr>
 		</table>
-		
 	</div>
-
 </body>
 </html>
