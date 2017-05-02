@@ -22,13 +22,13 @@
 <body>
 <c:if test="${ user != null}}">
 		
-			<c:forEach var="allVideos" items="${Model.allVideos}"> 
+			<c:forEach var="allVideos" items="${model.allVideos}"> 
 				<tr>
 					<td>
 					<c:out	value="${ allVideos.getKey(); }"></c:out>
 					</td>
 					<td>
-						<img src='<c:url value="${AllVideos.getValue}"/>' width="20" height="20"/>>
+						<img src='<c:url value="${AllVideos.getValue.getPath}"/>' width="20" height="20"/>>
 					</td>
 					
 				</tr>
