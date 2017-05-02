@@ -14,12 +14,20 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.function.ToDoubleBiFunction;
 
+import org.hibernate.validator.internal.util.privilegedactions.NewInstance;
+
+import com.youlose.model.EmailSender;
 import com.youlose.model.User;
 import com.youlose.model.Video;
 
 public class UserDAO {
+	private EmailSender check = new EmailSender();
 	private static UserDAO instance;
 	private HashMap<String, User> users = new HashMap<>();
+	
+	public UserDAO(){
+		
+	}
 
 	public synchronized static UserDAO getInstance() {
 		if (instance == null) {

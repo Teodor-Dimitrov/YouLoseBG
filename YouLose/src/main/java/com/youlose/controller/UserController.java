@@ -22,11 +22,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.youlose.dao.UserDAO;
 import com.youlose.dao.VideoDAO;
+import com.youlose.model.EmailSender;
+import com.youlose.model.EmailValidator;
+import com.youlose.model.PasswordValidator;
 import com.youlose.model.User;
 import com.youlose.model.Video;
 
 @Controller
 public class UserController {
+	PasswordValidator passCheck = new PasswordValidator();
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String showMainPage() {
@@ -68,10 +72,11 @@ public class UserController {
 		System.out.println(email);
 		System.out.println(password);
 		System.out.println(confPassword);
-
 		String msg = UserDAO.getInstance().validateRegistration(email, username, password, confPassword);
-		if (msg.equals("Registration successful")) {
-			User newUser = new User();
+         if(passCheck.validate(password)&& passCheck.validate(confPassword) && EmailValidator.validate(email) 
+        		&& msg.equals("Registration successful")){
+		    
+        	 User newUser = new User();
 			newUser.setEmail(email);
 			newUser.setName(username);
 			newUser.setPassword(password);
@@ -84,10 +89,12 @@ public class UserController {
 				e.printStackTrace();
 			}
 			return "main";
-		}
+		}  
+	    
 		s.setAttribute("ErrorMsg", msg);
 		return "invalidRegister";
 	}
+
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logOut(HttpSession s) {
