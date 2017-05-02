@@ -45,7 +45,7 @@
   											<center><c:out value="Subscribers:" />
   											 <img src="/MyProject/static/img/subscribers.jpeg" alt="subscribers" style="width:30px;">
     										<c:out value="${user.subscribers.size() }" />
- 									 		<form action="viewSubscribers" method="get" name = "${user.name }Subscribers">
+ 									 		<form action="{user.name}/subscriptions" method="get" name = "${user.name }Subscribers">
 											<input type="submit" style="background-color:red;" value="view all">
 											</form>
 													</center>				

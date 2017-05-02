@@ -42,6 +42,7 @@ public class VideoController {
 			HttpSession session,
 			Model model) throws IOException {
 		User user = (User) session.getAttribute("user");
+		if (user!=null) {			
 		openedVid = user.getUserID() + "_" + name +".mp4";
 		File fileD = new File(FILE_LOC + openedVid);
 		fileD.createNewFile();
@@ -74,7 +75,9 @@ public class VideoController {
 		}
 		
 		return "videoPlay";
-
+		}else{
+			return "login";
+		}
 	}
 	
 	@RequestMapping(value = "video/{videoPath}", method = RequestMethod.GET)

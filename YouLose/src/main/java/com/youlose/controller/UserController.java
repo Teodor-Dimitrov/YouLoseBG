@@ -86,7 +86,7 @@ public class UserController {
 			return "main";
 		}
 		s.setAttribute("ErrorMsg", msg);
-		return "register";
+		return "invalidRegister";
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

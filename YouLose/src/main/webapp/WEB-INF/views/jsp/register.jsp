@@ -25,6 +25,11 @@
 
 <body class="signup-page">
 	<jsp:include page="header.jsp" />
+	<table >
+	<td>
+		<jsp:include page="left.jsp" />
+	</td>
+	<td>
 
     <div class="wrapper">
 			<div class="container">
@@ -79,7 +84,8 @@
 			</div>
 
 		</div>
-
+</td>
+</table>
 </body>
 
 </html>
