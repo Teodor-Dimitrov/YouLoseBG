@@ -6,11 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login</title>
+<title>Subscribers</title>
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
-
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
 	<!--     Fonts and icons     -->
@@ -23,17 +20,21 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
+
 <table>
-	<td>
-		<jsp:include page="left.jsp" />
-	</td>
-	<td>
-			<h1>Results for ${sessisonScope.subscribers}</h1>
-				<c:forEach var ="current" items="${session.subscribers}" begin="0" end="subscribers.size()-1">
+		<td>
+			<jsp:include page="left.jsp" />
+		</td>
+		<td>
+			<h1>Results for Subscriptions</h1>
+			<c:if test="${subscribers.isEmpty()}">
+			<h1>You are not subscribed</h1>
+			</c:if>
+				<c:forEach var ="current" items="${subscribers}" >
 	 				<img src="${ current.profilePicture}" alt="profile picture" style="width:75px;heigth;">
   					<c:out value="${ current.name}" />
    					<img src="subscribers.jpeg" alt="subscribers" style="width:30px;">
-   					<c:out value="${ current.userPlaylist.subsrib.size()}" />
+   					<c:out value="${current.userPlaylist.subsrib.size()}" />
   					<form action="subscribe" method="get" name = "${ current.subscribers.name}">
 						<input type="submit" style="background-color:red;" value="Subscribe">
 					</form>
