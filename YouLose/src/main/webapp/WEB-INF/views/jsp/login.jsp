@@ -9,9 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
 	<!--     Fonts and icons     -->
@@ -20,8 +18,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
-    <link href="./static/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="./static/css/material-kit.css" rel="stylesheet"/>
+    <link href="/MyProject/static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/MyProject/static/css/material-kit.css" rel="stylesheet"/>
 
 </head>
 
