@@ -23,8 +23,14 @@ public class CommentController {
 	public void comment(Model model, HttpSession session, @RequestParam(value = "comment") String comment) {
 		User user = (User) session.getAttribute("user");
 		Video video = (Video) session.getAttribute("videoToPlaylist");
-		CommentDAO.getInstance().addComment(comment, user.getUserID(), video.getId());
-		System.out.println("ima komentarrrrrrrrrrrrrr");
+		try {
+			CommentDAO.getInstance().addComment(comment, user.getUserID(), video.getId());
+			System.out.println("ima komentarrrrrrrrrrrrrr");
+		} catch (SQLException e) {
+			System.out.println("no comment");
+			e.printStackTrace();
+		}
+		
 	}
 
 	@ResponseBody
