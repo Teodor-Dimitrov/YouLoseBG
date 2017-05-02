@@ -261,4 +261,21 @@ public class UserDAO {
 		}
 		return users;
 	}
+	
+	public User getUserById(int userId) throws SQLException{
+		String sql = "SELECT user_id, password, email, username, profile_picture FROM users WHERE id="+ userId + ";";
+		PreparedStatement st = null;
+		User user = new User();
+			st = DBManager.getInstance().getConnection().prepareStatement(sql);
+			ResultSet res = st.executeQuery();
+			while (res.next()) {
+				user.setUserID(res.getInt("user_id"));
+				user.setPassword(res.getString("password"));
+				user.setEmail(res.getString("email"));
+				user.setName(res.getString("username"));
+				user.setProfilePicture(res.getString("profile_picture"));
+				
+	}
+			return  user;
+}
 }

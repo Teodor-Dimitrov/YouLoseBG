@@ -1,6 +1,10 @@
 package com.youlose.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.youlose.dao.UserDAO;
@@ -104,8 +109,8 @@ public class UserController {
 	@RequestMapping(value = "/subscriptions", method = RequestMethod.GET)
 	public String getSubscribtions(HttpSession s) {
 		if (s.getAttribute("user")!=null) {
-			String user = (String) s.getAttribute("name");
-			String link = "/" + user + "/subscriptions";
+			User user = (User) s.getAttribute("user");
+			String link = "/" + user.getName() + "/subscriptions";
 			return "redirect:" + link;
 		}
 		return "login";
@@ -200,9 +205,19 @@ public class UserController {
 		else if(searched.equals("Playlists")){
 			
 		}
-		
-		
 		return "search";
+	}
+	
+	@RequestMapping(value = "{user.name}/subscriptions", method = RequestMethod.GET)
+	public String getAllSubscriptions(@PathVariable("user.name") String username, HttpSession session) throws IOException, SQLException{
+		User user =(User) session.getAttribute("user");
+		ArrayList<Integer> users = UserDAO.getInstance().getSubscribers(user.getUserID());
+		ArrayList<User> userSubscribers = new ArrayList();
+		for (int i = 0; i < users.size(); i++) {
+			userSubscribers.add(UserDAO.getInstance().getUserById(users.get(i)));
+		}
+		session.setAttribute("subscribers", userSubscribers);
+		return "listUsers";
 	}
 	
 }
