@@ -93,7 +93,7 @@ public class UserController {
 	@RequestMapping(value = "/subscribers", method = RequestMethod.GET)
 	public String getSubscribers(HttpSession s) {
 		
-		if ( s.getAttribute("logged")!=null) {
+		if ( s.getAttribute("user")!=null) {
 			String user = (String) s.getAttribute("name");
 			String link = "/" + user + "/subscribers";
 			return "redirect:" + link;
@@ -103,7 +103,7 @@ public class UserController {
 
 	@RequestMapping(value = "/subscriptions", method = RequestMethod.GET)
 	public String getSubscribtions(HttpSession s) {
-		if (s.getAttribute("logged")!=null) {
+		if (s.getAttribute("user")!=null) {
 			String user = (String) s.getAttribute("name");
 			String link = "/" + user + "/subscriptions";
 			return "redirect:" + link;
@@ -113,7 +113,7 @@ public class UserController {
 
 	@RequestMapping(value = "/playlist/{playlistName}", method = RequestMethod.GET)
 	public String getLikedVideos(HttpSession s, @PathVariable(value = "playlistName") String playlistName) {
-		if (s.getAttribute("logged")!=null) {
+		if (s.getAttribute("user")!=null) {
 			String user = (String) s.getAttribute("name");
 			String link = "/" + user + "/" + playlistName;
 			// TODO restrict user from registering with name="playlist"
@@ -166,7 +166,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String search(HttpSession s,
-			@RequestParam("serchWord") String searchWord,
+			@RequestParam("searchWord") String searchWord,
 			@RequestParam("searched") String searched){
 		if(searched.equals("Videos")){
 			HashMap<String, Video> results = new HashMap<>();

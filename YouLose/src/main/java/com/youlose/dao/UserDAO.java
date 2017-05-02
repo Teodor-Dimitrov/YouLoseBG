@@ -24,12 +24,6 @@ public class UserDAO {
 	public synchronized static UserDAO getInstance() {
 		if (instance == null) {
 			instance = new UserDAO();
-			try {
-				instance.getAllUsers();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		return instance;
 	}
@@ -60,7 +54,6 @@ public class UserDAO {
 	public boolean loginValid(String email, String password) throws SQLException {
 		PreparedStatement ps = null;
 		String sql = "SELECT email, password " + "FROM users WHERE email = ? AND password = ?;";
-		
 
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 
@@ -247,5 +240,25 @@ public class UserDAO {
 			}
 		}
 		return msg;
+	}
+	
+	public HashMap<String, User> searchAllUsersByString(String partOfName) throws SQLException {
+		String sql = "SELECT user_id, password, email, username, profile_picture FROM users WHERE name " + "like '%"
+				+ partOfName + "'%;";
+		PreparedStatement st = null;
+		if (users.isEmpty()) {
+			st = DBManager.getInstance().getConnection().prepareStatement(sql);
+			ResultSet res = st.executeQuery();
+			while (res.next()) {
+				User user = new User();
+				user.setUserID(res.getInt("user_id"));
+				user.setPassword(res.getString("password"));
+				user.setEmail(res.getString("email"));
+				user.setName(res.getString("username"));
+				user.setProfilePicture(res.getString("profile_picture"));
+				users.put(user.getName(), user);
+			}
+		}
+		return users;
 	}
 }

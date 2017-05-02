@@ -4,13 +4,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.youlose.model.Playlist;
+import com.youlose.model.User;
 import com.youlose.model.Video;
 
 public class PlaylistDAO {
 	private static PlaylistDAO instance;
+	private ArrayList<Playlist> playlists = new ArrayList<Playlist>();
 	
 	private PlaylistDAO(){
 		
@@ -51,7 +54,7 @@ public class PlaylistDAO {
 	}
 	
 	public void removeVideoFromPlaylist(int videoID) throws SQLException{
-		String sql = "DELEte from mydb.playlist_videos where videos_video_playlist_id = ?";
+		String sql = "DELETE from mydb.playlist_videos where videos_video_playlist_id = ?";
 		PreparedStatement ps = null;
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 		ps.setInt(1, videoID);
@@ -122,8 +125,24 @@ public class PlaylistDAO {
 				if(rs.next()){
 					return false;
 				}
-
 				return true;
-				
 			}
+	 
+	 public ArrayList<Playlist> searchAllUsersByString(String partOfName) throws SQLException {
+			String sql = "SELECT playlist_id, name, user_id FROM playlist WHERE name like '%"
+					+ partOfName + "'%;";
+			PreparedStatement st = null;
+			if (playlists.isEmpty()) {
+				st = DBManager.getInstance().getConnection().prepareStatement(sql);
+				ResultSet res = st.executeQuery();
+				while (res.next()) {
+					Playlist playlist = new Playlist();
+					playlist.setPlaylistID(res.getInt("playlist_id"));
+					playlist.setName(res.getString("name"));
+					playlist.setUserID(res.getInt(" user_id"));
+					playlists.add(playlist);
+				}
+			}
+			return playlists;
+		}
 }

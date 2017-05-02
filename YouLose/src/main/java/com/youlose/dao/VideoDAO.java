@@ -49,7 +49,6 @@ public class VideoDAO {
 	}
 
 	public HashMap<String, Video> searchAllByString(String partOfName) throws SQLException {
-
 		String sql = "SELECT videos_id, name, path, views,date,description FROM videos WHERE name " + "like '%"
 				+ partOfName + "'%;";
 
