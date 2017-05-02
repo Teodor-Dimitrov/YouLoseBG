@@ -29,9 +29,10 @@
 		</td>
 		<td>
 			<jsp:include page="player.jsp" />
-			
-		
-	</td>
+		</td>
+	<	<td>
+		  <jsp:include page = "right.jsp">
+		</td>> 
 </table>
 </body>
 </html>

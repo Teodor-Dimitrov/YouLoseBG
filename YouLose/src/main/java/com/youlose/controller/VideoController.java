@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletResponse;
@@ -63,6 +64,15 @@ public class VideoController {
 
 		session.setAttribute("videoPath", openedVid);
 		System.out.println(openedVid);
+		HashMap<String, Video> allVideos;
+		try {
+			allVideos = VideoDAO.getInstance().getAllVideos();
+			model.addAttribute("allVideos", allVideos);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return "videoPlay";
 
 	}
