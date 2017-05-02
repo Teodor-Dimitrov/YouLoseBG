@@ -27,10 +27,34 @@
 			<jsp:include page="left.jsp" />
 		</td>
 		<td>
-			<h1>Results for Subscriptions</h1>
-			<c:if test="${subscribers.isEmpty()}">
-			<h1>You are not subscribed</h1>
-			</c:if>
+		<div class="wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+						<div class="card card-signup">
+								<p class="text-divider" ><i><b>Results for Subscriptions</i></b></p>
+									<c:if test="${subscribers.isEmpty()}">
+										<center><h5>You are not subscribed</h5></center>
+									</c:if>
+								<div class="content">
+									<div class="input-group">
+					<span class="input-group-addon">
+									<c:forEach var ="current" items="${subscribers}" >
+	 										<img src="${ current.profilePicture}" alt="profile picture" style="width:75px;heigth;">
+  											<c:out value="${ current.name}" />
+   											<img src="subscribers.jpeg" alt="subscribers" style="width:30px;">
+   										<c:out value="${current.userPlaylist.subsrib.size()}" />
+  										<form action="subscribe" method="get" name = "${ current.subscribers.name}">
+											<input type="submit" style="background-color:red;" value="Subscribe">
+										</form>
+								</c:forEach>
+				</span>
+						</div>
+					</div>
+				</div>
+			</div></td>
+		<td>
+
 				<c:forEach var ="current" items="${subscribers}" >
 	 				<img src="${ current.profilePicture}" alt="profile picture" style="width:75px;heigth;">
   					<c:out value="${ current.name}" />

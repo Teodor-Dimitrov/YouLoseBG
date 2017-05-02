@@ -1,8 +1,11 @@
 package com.youlose.dao;
 
+import static org.mockito.Matchers.contains;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import java.awt.List;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +17,20 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.function.ToDoubleBiFunction;
 
+import org.hibernate.validator.internal.util.privilegedactions.NewInstance;
+
+import com.youlose.model.EmailSender;
 import com.youlose.model.User;
 import com.youlose.model.Video;
 
 public class UserDAO {
+	private EmailSender check = new EmailSender();
 	private static UserDAO instance;
 	private HashMap<String, User> users = new HashMap<>();
+	
+	public UserDAO(){
+		
+	}
 
 	public synchronized static UserDAO getInstance() {
 		if (instance == null) {
@@ -28,13 +39,16 @@ public class UserDAO {
 		return instance;
 	}
 
-	public synchronized boolean save(User user) throws SQLException {
+	public synchronized boolean save(User user) throws SQLException, NoSuchAlgorithmException {
 
 		PreparedStatement statement = null;
-		
-			String sql = "INSERT INTO users (email,username,password,profile_picture)" + "VALUES(?,?,?,?);";
-			statement = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
+			
+		    Connection con = DBManager.getInstance().getConnection();
+		    
+			String sql = "INSERT INTO users (email,username,password,profile_picture)" + "VALUES(?,?,md5(?),?);";
+			statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			
+        
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getName());
 			statement.setString(3, user.getPassword());
@@ -44,7 +58,8 @@ public class UserDAO {
 			ResultSet rs = statement.getGeneratedKeys();
 			while(rs.next()){
 				user.setUserID(rs.getInt(1));
-			}
+			} 
+		
 			for(String playlist : user.getPlaylists()){
 				PlaylistDAO.getInstance().createPlaylist(user.getUserID(), playlist);
 			}
@@ -56,14 +71,14 @@ public class UserDAO {
 		return false;
 	}
 
-	public boolean loginValid(String email, String password) throws SQLException {
+	public boolean loginValid(String email, String password) throws SQLException, NoSuchAlgorithmException {
 		PreparedStatement ps = null;
 		String sql = "SELECT email, password " + "FROM users WHERE email = ? AND password = ?;";
 
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 
 			ps.setString(1, email);
-			ps.setString(2, password);
+			ps.setString(2, User.hashPass(password));
 
 			ResultSet rs = ps.executeQuery();
 

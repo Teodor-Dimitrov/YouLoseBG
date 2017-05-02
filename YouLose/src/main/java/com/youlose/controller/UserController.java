@@ -3,6 +3,7 @@ package com.youlose.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,11 +23,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.youlose.dao.UserDAO;
 import com.youlose.dao.VideoDAO;
+import com.youlose.model.EmailSender;
+import com.youlose.model.EmailValidator;
+import com.youlose.model.PasswordValidator;
 import com.youlose.model.User;
 import com.youlose.model.Video;
 
 @Controller
 public class UserController {
+	PasswordValidator passCheck = new PasswordValidator();
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String showMainPage() {
@@ -43,13 +48,18 @@ public class UserController {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		try {
-			if (UserDAO.getInstance().loginValid(email, password)) {
-				s.setAttribute("user", UserDAO.getInstance().getAllUsers().get(email));
-				return "redirect:/index";
-			}
+			
+				if (UserDAO.getInstance().loginValid(email, password)) {
+					s.setAttribute("user", UserDAO.getInstance().getAllUsers().get(email));
+					return "redirect:/index";
+				}
+			
 		} catch (SQLException e) {
 			return "invalidLogin";
 		}
+		 catch (NoSuchAlgorithmException e) {
+				return "invalidLogin";
+			}
 		return "invalidLogin";
 	}
 
@@ -68,10 +78,11 @@ public class UserController {
 		System.out.println(email);
 		System.out.println(password);
 		System.out.println(confPassword);
-
 		String msg = UserDAO.getInstance().validateRegistration(email, username, password, confPassword);
-		if (msg.equals("Registration successful")) {
-			User newUser = new User();
+         if(passCheck.validate(password) && EmailValidator.validate(email) 
+        		&& msg.equals("Registration successful")){
+		    
+        	 User newUser = new User();
 			newUser.setEmail(email);
 			newUser.setName(username);
 			newUser.setPassword(password);
@@ -79,20 +90,29 @@ public class UserController {
 			try {
 				UserDAO.getInstance().save(newUser);
 				return "main";
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e1){
+				e1.printStackTrace();
+				return "invalidRegister";
 			}
-			return "main";
-		}
+			catch (SQLException e) {
+				e.printStackTrace();
+				return "invalidRegister";
+				
+			}
+			
+		}  
+	    s.setAttribute("logged", true);
 		s.setAttribute("ErrorMsg", msg);
 		return "invalidRegister";
 	}
 
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logOut(HttpSession s) {
+		s.setAttribute("logged", false);
 		s.invalidate();
 		return "main";
+
 	}
 
 	@RequestMapping(value = "/subscribers", method = RequestMethod.GET)

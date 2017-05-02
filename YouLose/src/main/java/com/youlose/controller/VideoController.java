@@ -60,7 +60,7 @@ public class VideoController {
 		} catch (SQLException e) {
 			System.out.println("Problem uploading video in DB");
 			e.printStackTrace();
-			return "error";
+			return "errorPage";
 		}
 
 		session.setAttribute("videoPath", openedVid);
@@ -76,7 +76,7 @@ public class VideoController {
 		
 		return "videoPlay";
 		}else{
-			return "login";
+			return "main";
 		}
 	}
 	

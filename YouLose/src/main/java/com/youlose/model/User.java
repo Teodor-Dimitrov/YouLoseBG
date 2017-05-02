@@ -1,10 +1,14 @@
 package com.youlose.model;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.xml.bind.DatatypeConverter;
 
 public class User {
 
@@ -92,6 +96,15 @@ public class User {
 	}
 	public Set<String> getPlaylists(){
 		return this.userPlaylist.keySet();
+	}
+	
+	public static String hashPass(String password) throws NoSuchAlgorithmException{
+		MessageDigest m = MessageDigest.getInstance("MD5");
+		m.update(password.getBytes());
+		byte[] dig = m.digest();
+		String hashtext = DatatypeConverter.printHexBinary(dig).toLowerCase();
+		
+		return hashtext;
 	}
 	
 }
