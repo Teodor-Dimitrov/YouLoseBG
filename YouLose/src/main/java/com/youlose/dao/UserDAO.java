@@ -205,15 +205,17 @@ public class UserDAO {
 		}
 	}
 
-	public void editProfilePicture(int userID, String newPhoto) throws SQLException {
+	public void editProfilePicture(User user, String newPhoto) throws SQLException {
 		String sql = "UPDATE users SET profile_picture = ? WHERE user_id =?";
 		PreparedStatement ps = null;
 		
-			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 
-			ps.setString(1, newPhoto);
-			ps.setInt(2, userID);
-			ps.executeUpdate();
+		ps.setString(1, newPhoto);
+		ps.setLong(2, user.getUserID());
+		ps.executeUpdate();
+		
+		user.setProfilePicture(newPhoto);
 		
 	}
 

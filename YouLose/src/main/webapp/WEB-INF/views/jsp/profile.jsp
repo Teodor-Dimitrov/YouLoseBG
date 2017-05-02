@@ -20,8 +20,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
-    <link href="/MyProject/static/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/MyProject/static/css/material-kit.css" rel="stylesheet"/>
+    <link href="/Youlose/static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Youlose/static/css/material-kit.css" rel="stylesheet"/>
 </head>
 
 <jsp:include page="header.jsp" />
@@ -40,10 +40,10 @@
 								<p class="text-divider"><b><i>Profile data</i></b></p>
 								<div class="content">
 								<div>
-									<center><img src="${user.profilePicture}" alt="profile picture" style="width:120px;heigth;"></center>
+									<center><img src="image/${user.profilePicture}" alt="profile picture" style="width:120px;heigth;"></center>
   										<center><c:out value="${user.name} " /></center></br>
   											<center><c:out value="Subscribers:" />
-  											 <img src="/MyProject/static/img/subscribers.jpeg" alt="subscribers" style="width:30px;">
+  											 <img src="/Youlose/static/img/subscribers.jpeg" alt="subscribers" style="width:30px;">
     										<c:out value="${user.subscribers.size() }" />
  									 		<form action="{user.name}/subscriptions" method="get" name = "${user.name }Subscribers">
 											<input type="submit" style="background-color:red;" value="view all">
@@ -52,14 +52,12 @@
 								</div>
 								</div>
 							</form>
-									<form action="changeProfilePicture" method="post">
-									<div class="footer text-center">
-							
-										
-										<input type="submit" value="Change profile picture"  class="btn btn-simple btn-primary btn-lg">
-											<center><input  type="file" id="file" name="profilePicture" accept="image/*"></center>
-											</div>
-										</form>
+									<form action="changeProfilePicture" method="post" enctype="multipart/form-data">
+										<div class="footer text-center">									
+											<input type="submit" value="Change profile picture"  class="btn btn-simple btn-primary btn-lg">
+											<center><input  type="file" id="file" name="profilePicture" accept="image/png"></center>
+										</div>
+									</form>
 							
 							<form action="changeUsername" method="get">
 							<div class="footer text-center">
