@@ -15,6 +15,23 @@ public class User {
 	private String profilePicture;
 	private HashMap<String, Playlist> userPlaylist;
 	public static final String DEFAULT_PROFILE_PIC = "profile_pictures/default.png";
+	private  HashMap<String, User> subscribers;
+
+	public HashMap<String, Playlist> getUserPlaylist() {
+		return userPlaylist;
+	}
+
+	public void setUserPlaylist(HashMap<String, Playlist> userPlaylist) {
+		this.userPlaylist = userPlaylist;
+	}
+
+	public HashMap<String, User> getSubscribers() {
+		return subscribers;
+	}
+
+	public void setSubscribers(HashMap<String, User> subscribers) {
+		this.subscribers = subscribers;
+	}
 
 	public User() {
 		this.userPlaylist= new HashMap<>();
@@ -22,7 +39,7 @@ public class User {
 		this.userPlaylist.put("uploaded", new Playlist());
 		this.userPlaylist.put("watched", new Playlist());
 		this.userPlaylist.put("watchLater", new Playlist());
-		//this.userPlaylist.put("subsrib", new Playlist());
+		this.subscribers = new HashMap<>();
 	
 	
 	}

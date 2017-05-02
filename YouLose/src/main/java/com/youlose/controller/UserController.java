@@ -220,4 +220,12 @@ public class UserController {
 		return "listUsers";
 	}
 	
+	@RequestMapping(value = "{user.name}/profile", method = RequestMethod.GET)
+	public String getProfile(@PathVariable("user.name") String username, HttpSession session) throws IOException, SQLException{
+		User user =(User) session.getAttribute("user");
+		
+		session.setAttribute("user", user);
+		return "profile";
+	}
+	
 }

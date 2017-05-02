@@ -30,7 +30,7 @@
 
 		<c:if test="${user != null}">
 			<c:set var="home" scope="session" value="index" />
-			<c:set var="profile" scope="session" value="profile" />
+			<c:set var="profile" scope="session" value="${user.name}/profile" />
 			<c:set var="forLater" scope="session" value="forLater" />
 			<c:set var="watched" scope="session" value="watched" />
 			<c:set var="liked" scope="session" value="liked" />

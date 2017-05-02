@@ -40,12 +40,12 @@
 								<p class="text-divider"><b><i>Profile data</i></b></p>
 								<div class="content">
 								<div>
-									<center><img src="${sessionScope.user.profilePicture}" alt="profile picture" style="width:120px;heigth;"></center>
-  										<center><c:out value="${sessionScope.user.username} }" /></center></br>
+									<center><img src="${user.profilePicture}" alt="profile picture" style="width:120px;heigth;"></center>
+  										<center><c:out value="${user.name} " /></center></br>
   											<center><c:out value="Subscribers:" />
-  											 <img src="subscribers.jpeg" alt="subscribers" style="width:30px;">
-    										<c:out value="4" />
- 									 		<form action="viewSubscribers" method="get" name = "${user.username }Subscribers">
+  											 <img src="/MyProject/static/img/subscribers.jpeg" alt="subscribers" style="width:30px;">
+    										<c:out value="${user.subscribers.size() }" />
+ 									 		<form action="viewSubscribers" method="get" name = "${user.name }Subscribers">
 											<input type="submit" style="background-color:red;" value="view all">
 											</form>
 													</center>				
