@@ -24,15 +24,20 @@ public class UserDAO {
 	public synchronized static UserDAO getInstance() {
 		if (instance == null) {
 			instance = new UserDAO();
-			instance.getAllUsers();
+			try {
+				instance.getAllUsers();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return instance;
 	}
 
-	public synchronized boolean save(User user) {
+	public synchronized boolean save(User user) throws SQLException {
 
 		PreparedStatement statement = null;
-		try {
+		
 			String sql = "INSERT INTO users (email,username,password,profile_picture)" + "VALUES(?,?,?,?)";
 			statement = DBManager.getInstance().getConnection().prepareStatement(sql);
 
@@ -48,16 +53,14 @@ public class UserDAO {
 				return true;
 			}
 
-		} catch (SQLException e) {
-			return false;
-		}
-		return true;
+		
+		return false;
 	}
 
-	public boolean loginValid(String email, String password) {
+	public boolean loginValid(String email, String password) throws SQLException {
 		PreparedStatement ps = null;
 		String sql = "SELECT email, password " + "FROM users WHERE email = ? AND password = ?;";
-		try {
+		
 
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 
@@ -71,9 +74,7 @@ public class UserDAO {
 				return false;
 			}
 
-		} catch (SQLException e) {
-			System.out.println("User cannot be logged in.");
-		}
+		
 		return true;
 	}
 
@@ -87,10 +88,10 @@ public class UserDAO {
 		return null;
 	}
 
-	public HashMap<String, User> getAllUsers() {
+	public HashMap<String, User> getAllUsers() throws SQLException {
 		if (users != null) {
 			Statement st = null;
-			try {
+		
 				st = DBManager.getInstance().getConnection().createStatement();
 
 				ResultSet resultSet = st
@@ -105,23 +106,18 @@ public class UserDAO {
 					users.put(user.getEmail(), user);
 				}
 
-			} catch (SQLException e) {
-
-				System.out.println("Error in getAllUsers");
-				e.printStackTrace();
-
-			}
+			
 			return users;
 		} else {
 			return users;
 		}
 	}
 
-	public boolean subscribeUser(int subscriberID, int subscribedID) {
+	public boolean subscribeUser(int subscriberID, int subscribedID) throws SQLException {
 		if (subscribedID != 0) {
 			String sql = "INSERT into user_subscribers (users_user_id, users_subscriber_id) values (?,?);";
 			PreparedStatement ps = null;
-			try {
+			
 				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 				ps.setInt(1, subscribedID);
 				ps.setInt(2, subscriberID);
@@ -129,57 +125,49 @@ public class UserDAO {
 				if (rows > 0) {
 					return true;
 				}
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-
+			
 			return false;
 		}
 		return false;
 	}
 
-	public ArrayList<Integer> getSubscribers(int subscribedID) {
+	public ArrayList<Integer> getSubscribers(int subscribedID) throws SQLException {
 		String sql = "SELECT users_subscriber_id from user_subscribers where users_user_id = ?;";
 		ArrayList<Integer> subscribers = new ArrayList<>();
 		PreparedStatement ps = null;
 
-		try {
+		
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, subscribedID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				subscribers.add(rs.getInt("users_subscriber_id"));
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 		return subscribers;
 	}
 
-	public ArrayList<Integer> getSubscribing(int subscriberID) {
+	public ArrayList<Integer> getSubscribing(int subscriberID) throws SQLException{
 		String sql = "SELECT users_user_id from user_subscribers where user_subscriber_id = ?;";
 		ArrayList<Integer> subscribing = new ArrayList<>();
 		PreparedStatement ps = null;
-		try {
+	
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, subscriberID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				subscribing.add(rs.getInt("users_user_id"));
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return subscribing;
 	}
 
-	public boolean unSubscribeUser(int subscriberID, int subscribedID) {
+	public boolean unSubscribeUser(int subscriberID, int subscribedID) throws SQLException {
 		if (subscribedID != 0) {
 			String sql = "DELETE from user_subscribers WHERE users_subscriber_id = ? AND users_user_id = ?;";
 			PreparedStatement ps = null;
 
-			try {
+			
 				ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 				ps.setInt(1, subscriberID);
 				ps.setInt(2, subscribedID);
@@ -189,27 +177,21 @@ public class UserDAO {
 				if (rows > 0) {
 					return true;
 				}
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-
-			}
+			
 			return false;
 		}
 		return false;
 	}
 
-	public void editPassword(int userID, String newPassword) {
+	public void editPassword(int userID, String newPassword) throws SQLException {
 		String sql = "UPDATE users SET password = ? WHERE user_id=?";
 		PreparedStatement ps = null;
-		try {
+	
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setString(1, newPassword);
 			ps.setInt(2, userID);
 			ps.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 	public void addProfilePicture(String username, String profilepic) throws SQLException {
@@ -225,34 +207,28 @@ public class UserDAO {
 		}
 	}
 
-	public void editProfilePicture(int userID, String newPhoto) {
+	public void editProfilePicture(int userID, String newPhoto) throws SQLException {
 		String sql = "UPDATE users SET profile_picture = ? WHERE user_id =?";
 		PreparedStatement ps = null;
-		try {
+		
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 
 			ps.setString(1, newPhoto);
 			ps.setInt(2, userID);
 			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("error in editpic");
-			e.printStackTrace();
-		}
+		
 	}
 
-	public void editName(int userID, String newName) {
+	public void editName(int userID, String newName) throws SQLException {
 		String sql = "UPDATE users SET username = ? WHERE user_id = ?";
 		PreparedStatement ps = null;
-		try {
+		
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 
 			ps.setString(1, newName);
 			ps.setInt(2, userID);
 			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("err with updating name");
-			e.printStackTrace();
-		}
+		
 	}
 
 	public String validateRegistration(String email, String name, String password, String confPass) {

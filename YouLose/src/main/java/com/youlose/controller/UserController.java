@@ -37,9 +37,13 @@ public class UserController {
 	public String logIn(HttpServletRequest req, HttpSession s) {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		if (UserDAO.getInstance().loginValid(email, password)) {
-			s.setAttribute("user", UserDAO.getInstance().getAllUsers().get(email));
-			return "redirect:/index";
+		try {
+			if (UserDAO.getInstance().loginValid(email, password)) {
+				s.setAttribute("user", UserDAO.getInstance().getAllUsers().get(email));
+				return "redirect:/index";
+			}
+		} catch (SQLException e) {
+			return "invalidLogin";
 		}
 		return "invalidLogin";
 	}
@@ -67,8 +71,14 @@ public class UserController {
 			newUser.setName(username);
 			newUser.setPassword(password);
 			newUser.setProfilePicture(User.DEFAULT_PROFILE_PIC);
-			UserDAO.getInstance().save(newUser);
-			return "main";
+			try {
+				UserDAO.getInstance().save(newUser);
+				return "main";
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "register";
 		}
 
 		return "register";
@@ -126,8 +136,13 @@ public class UserController {
 		User currentUser = (User) session.getAttribute("user");
 		User subscribUser = null;
 		subscribUser = UserDAO.getInstance().getUser((User) session.getAttribute("usernameSubscribe"));
-		if (UserDAO.getInstance().subscribeUser(currentUser.getUserID(), subscribUser.getUserID())) {
-			System.out.println("subscribe is done");
+		try {
+			if (UserDAO.getInstance().subscribeUser(currentUser.getUserID(), subscribUser.getUserID())) {
+				System.out.println("subscribe is done");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -137,8 +152,13 @@ public class UserController {
 		User currentUser = (User) session.getAttribute("user");
 		User unSubscribUser = null;
 		unSubscribUser = UserDAO.getInstance().getUser((User) session.getAttribute("usernameSubscribe"));
-		if (UserDAO.getInstance().unSubscribeUser(currentUser.getUserID(), unSubscribUser.getUserID())) {
-			System.out.println("unsubsribe is done is done");
+		try {
+			if (UserDAO.getInstance().unSubscribeUser(currentUser.getUserID(), unSubscribUser.getUserID())) {
+				System.out.println("unsubsribe is done is done");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -165,11 +185,15 @@ public class UserController {
 			}
 		}
 		else if(searched.equals("Users)")){
-			if(UserDAO.getInstance().getAllUsers().containsKey(searchWord)){
-				s.setAttribute("results", UserDAO.getInstance().getAllUsers().get(searchWord));
-			}
-			else{
-				s.setAttribute("results", "none");
+			try {
+				if(UserDAO.getInstance().getAllUsers().containsKey(searchWord)){
+					s.setAttribute("results", UserDAO.getInstance().getAllUsers().get(searchWord));
+				}
+				else{
+					s.setAttribute("results", "none");
+				}
+			} catch (SQLException e) {
+				return "search";
 			}
 		}
 		
