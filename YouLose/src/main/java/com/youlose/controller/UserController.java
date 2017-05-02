@@ -3,6 +3,7 @@ package com.youlose.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,13 +48,18 @@ public class UserController {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		try {
-			if (UserDAO.getInstance().loginValid(email, password)) {
-				s.setAttribute("user", UserDAO.getInstance().getAllUsers().get(email));
-				return "redirect:/index";
-			}
+			
+				if (UserDAO.getInstance().loginValid(email, password)) {
+					s.setAttribute("user", UserDAO.getInstance().getAllUsers().get(email));
+					return "redirect:/index";
+				}
+			
 		} catch (SQLException e) {
 			return "invalidLogin";
 		}
+		 catch (NoSuchAlgorithmException e) {
+				return "invalidLogin";
+			}
 		return "invalidLogin";
 	}
 
@@ -73,7 +79,7 @@ public class UserController {
 		System.out.println(password);
 		System.out.println(confPassword);
 		String msg = UserDAO.getInstance().validateRegistration(email, username, password, confPassword);
-         if(passCheck.validate(password)&& passCheck.validate(confPassword) && EmailValidator.validate(email) 
+         if(passCheck.validate(password) && EmailValidator.validate(email) 
         		&& msg.equals("Registration successful")){
 		    
         	 User newUser = new User();
@@ -84,13 +90,18 @@ public class UserController {
 			try {
 				UserDAO.getInstance().save(newUser);
 				return "main";
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e1){
+				e1.printStackTrace();
+				return "invalidRegister";
 			}
-			return "main";
+			catch (SQLException e) {
+				e.printStackTrace();
+				return "invalidRegister";
+				
+			}
+			
 		}  
-	    
+	    s.setAttribute("logged", true);
 		s.setAttribute("ErrorMsg", msg);
 		return "invalidRegister";
 	}
@@ -98,8 +109,10 @@ public class UserController {
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logOut(HttpSession s) {
+		s.setAttribute("logged", false);
 		s.invalidate();
 		return "main";
+
 	}
 
 	@RequestMapping(value = "/subscribers", method = RequestMethod.GET)
