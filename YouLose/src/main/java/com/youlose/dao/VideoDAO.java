@@ -49,7 +49,7 @@ public class VideoDAO {
 	}
 
 	public HashMap<String, Video> searchAllByString(String partOfName) throws SQLException {
-		String sql = "SELECT videos_id, name, path, views,date,description FROM videos WHERE name " + "like '"
+		String sql = "SELECT videos_id, name, path, views,date,description FROM videos WHERE name " + "%like%"
 				+ partOfName + "';";
 		PreparedStatement st = null;
 		if (allVideos.isEmpty()) {
@@ -70,11 +70,11 @@ public class VideoDAO {
 		return allVideos;
 	}
 
-	public synchronized void addVideo(Video video, User user) throws SQLException {
+	public synchronized int addVideo(Video video, User user) throws SQLException {
 		String sql = "INSERT INTO videos (name, path, views,date,description) VALUES (?,?,?,?,?);";
 		Instant instant = Instant.now();
 		Timestamp time = java.sql.Timestamp.from(instant);
-
+        int videoID=0;
 		PreparedStatement ps = null;
 		ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 		ps.setString(1, video.getName());
@@ -82,11 +82,11 @@ public class VideoDAO {
 		ps.setInt(3, video.getViews());
 		ps.setTimestamp(4, time);
 		ps.setString(5, video.getDescription());
-		int rows = ps.executeUpdate();
-		if (rows > 0) {
-			System.out.println("vutre e");
+		ResultSet rs = ps.getGeneratedKeys();
+		while(rs.next()){
+			videoID = rs.getInt(1);
 		}
-
+		return videoID;
 	}
 
 	public synchronized void likeVideo(int videoID, int userID) throws SQLException {

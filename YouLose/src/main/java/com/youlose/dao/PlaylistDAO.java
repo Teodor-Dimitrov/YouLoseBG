@@ -24,11 +24,11 @@ public class PlaylistDAO {
 	}
 	
 
-	public int createPlaylist(int userID, String name) {
+	public int createPlaylist(int userID, String name) throws SQLException {
 		String sql = "insert into mydb.playlists (user_id, title) VALUES (?,?) ";
 		int playlistID = 0;
 		PreparedStatement ps = null;
-		try {
+		
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, userID);
 			ps.setString(2, name);
@@ -37,9 +37,7 @@ public class PlaylistDAO {
 			while (rs.next()) {
 				playlistID = rs.getInt(1);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 		return playlistID;
 	}
 	
@@ -65,7 +63,7 @@ public class PlaylistDAO {
 
 		ArrayList<Playlist> playlists = new ArrayList<>();
 		PreparedStatement ps = null;
-		try {
+		
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, userID);
 
@@ -80,14 +78,12 @@ public class PlaylistDAO {
 				playlists.add(playlist);
 			}
 
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		
 
 		return playlists;
 	}
 	
-	public ArrayList<Video> getVideosOFPlaylist(int playlistID) {
+	public ArrayList<Video> getVideosOFPlaylist(int playlistID) throws SQLException{
 
 		String sql = "SELECT v.video_id, v.name, v.path, v.views, v.date, v.description"
 				+ "FROM mydb.videos v join mydb.playlist_videos s"
@@ -95,7 +91,7 @@ public class PlaylistDAO {
 
 		ArrayList<Video> videos = new ArrayList<Video>();
 		PreparedStatement ps = null;
-		try {
+		
 			ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ps.setInt(1, playlistID);
 			ResultSet rs = ps.executeQuery();
@@ -110,9 +106,7 @@ public class PlaylistDAO {
 				videos.add(video);
 			}
 
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		
 		return videos;
 	}
 	

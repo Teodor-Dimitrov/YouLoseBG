@@ -82,8 +82,15 @@ public class PlaylistController {
 		HttpServletRequest request, HttpSession session) {
 		User user = (User)session.getAttribute("user");
 		System.out.println(user);
-		ArrayList<Video> videos = PlaylistDAO.getInstance().getVideosOFPlaylist(playlistID);
-		model.addAttribute("videosInPlaylist", videos);
+		ArrayList<Video> videos;
+		try {
+			videos = PlaylistDAO.getInstance().getVideosOFPlaylist(playlistID);
+			model.addAttribute("videosInPlaylist", videos);
+		} catch (SQLException e) {
+			System.out.println("get");
+			e.printStackTrace();
+		}
+	
 		return "playlistVideos";
          
 	}
