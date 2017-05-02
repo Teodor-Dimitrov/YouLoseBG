@@ -37,7 +37,7 @@
 					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
 						<div class="card card-signup">
 							<form class="form" action="register" method="post">
-								<p class="text-divider" style="color:red"><b><i>Invalid username or password</i></b></p>
+								<p class="text-divider" style="color:red"><b><i>Invalid email or password</i></b></p>
 								<div class="content">
 									<div class="input-group">
 										<span class="input-group-addon">
