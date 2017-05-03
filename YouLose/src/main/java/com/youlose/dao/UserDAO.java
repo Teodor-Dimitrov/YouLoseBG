@@ -41,33 +41,47 @@ public class UserDAO {
 
 	public synchronized boolean save(User user) throws SQLException, NoSuchAlgorithmException {
 
-		PreparedStatement statement = null;
+		PreparedStatement ps1 = null;
+		PreparedStatement ps2 = null;
 			
 		    Connection con = DBManager.getInstance().getConnection();
 		    
-			String sql = "INSERT INTO users (email,username,password,profile_picture)" + "VALUES(?,?,md5(?),?);";
-			statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		    try{
+		    	con.setAutoCommit(false);
+		    String sql = "INSERT INTO users (email,username,password,profile_picture)" + "VALUES(?,?,md5(?),?);";
+			ps1 = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps1.setString(1, user.getEmail());
+			ps1.setString(2, user.getName());
+			ps1.setString(3, user.getPassword());
+			ps1.setString(4, user.getProfilePicture());
 			
-        
-			statement.setString(1, user.getEmail());
-			statement.setString(2, user.getName());
-			statement.setString(3, user.getPassword());
-			statement.setString(4, user.getProfilePicture());
-			
-			int rowsAffected = statement.executeUpdate();
-			ResultSet rs = statement.getGeneratedKeys();
+			int rowsAffected = ps1.executeUpdate();
+			ResultSet rs = ps1.getGeneratedKeys();
 			while(rs.next()){
 				user.setUserID(rs.getInt(1));
 			} 
-		
+			String sql2 = "INSERT INTO mydb.playlists (users_user1_id, name) VALUES (?,?) ";
 			for(String playlist : user.getPlaylists()){
-				PlaylistDAO.getInstance().createPlaylist(user.getUserID(), playlist);
+				
+				
+				   
+				PreparedStatement ps = null;
+				
+					ps = DBManager.getInstance().getConnection().prepareStatement(sql2);
+					ps.setLong(1, user.getUserID());
+					ps.setString(2, user.getName());
+					ps.executeUpdate();
+					ResultSet rs2 = ps.executeQuery();
 			}
-			if (rowsAffected > 0) {
-				System.out.println("Saving user is successful!!");
+			    con.commit();
 				users.put(user.getEmail(), user);
 				return true;
-			}
+			
+		    } catch(SQLException e ){
+		    	con.rollback();
+		    	System.out.println("error in trasaction in userdao");
+		    
+		    }
 		return false;
 	}
 

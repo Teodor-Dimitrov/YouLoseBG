@@ -36,11 +36,9 @@ public class VideoDAO {
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 				Video video = new Video();
-<<<<<<< HEAD
-				video.setId(res.getInt("video_id"));
-=======
+
 				video.setId(res.getLong("video_id"));
->>>>>>> 7e67f0ef507d7bfa25c2150000390ee4d6fc7bb2
+
 				video.setName(res.getString("name"));
 				video.setPath(res.getString("path"));
 				video.setViews(res.getInt("views"));
