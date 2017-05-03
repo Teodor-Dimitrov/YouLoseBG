@@ -52,16 +52,21 @@ public class VideoDAO {
 	}
 
 	public HashMap<String, Video> searchAllByString(String partOfName) throws SQLException {
-		String sql = "SELECT video_id, name, path, views,date,description FROM videos WHERE name " + "like '%"
-				+ partOfName + "'%;";
 
+		String sql = "SELECT video_id, name, path, views,date,description FROM videos WHERE name like ?;";
+		
 		PreparedStatement st = null;
 		if (allVideos.isEmpty()) {
+			try{
 			st = DBManager.getInstance().getConnection().prepareStatement(sql);
+			st.setString(1, "%"+partOfName+"%");
+			System.out.println("1");
 			ResultSet res = st.executeQuery();
+			System.out.println("2");
+			
 			while (res.next()) {
 				Video video = new Video();
-				video.setId(res.getInt("videos_id"));
+				video.setId(res.getInt("video_id"));
 				video.setName(res.getString("name"));
 				video.setPath(res.getString("path"));
 				video.setViews(res.getInt("views"));
@@ -69,6 +74,12 @@ public class VideoDAO {
 				video.setDescription(res.getString("description"));
 				allVideos.put(video.getName(), video);
 			}
+			}
+			catch(SQLException e){
+				e.printStackTrace();
+				throw new SQLException();
+			}
+			
 
 		}
 		return allVideos;

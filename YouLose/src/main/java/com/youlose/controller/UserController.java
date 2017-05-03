@@ -195,14 +195,16 @@ public class UserController {
 			@RequestParam("searched") String searched){
 		if(searched.equals("Videos")){
 			HashMap<String, Video> results = new HashMap<>();
-			s.setAttribute("searched", searchWord);
+			s.setAttribute("searchedWord", searchWord);
+			s.removeAttribute("results");
+			System.out.println(searchWord);
 			try{
 				results = VideoDAO.getInstance().searchAllByString(searchWord);
 				if(results.isEmpty()){
 					s.setAttribute("results", "none");
 				}
 				else{
-					s.setAttribute("results", results.keySet());
+					s.setAttribute("results", results);
 				}
 			}
 			catch(SQLException e){
