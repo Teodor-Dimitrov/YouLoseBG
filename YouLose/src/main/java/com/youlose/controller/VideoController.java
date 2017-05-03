@@ -64,6 +64,7 @@ public class VideoController {
 		}
 
 		session.setAttribute("videoPath", openedVid);
+		model.addAttribute("video", video);
 		System.out.println(openedVid);
 		HashMap<String, Video> allVideos;
 		try {
