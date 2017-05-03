@@ -36,13 +36,17 @@ public class PictureController {
 		File file = new File(FILE_LOCATION + fileName+".png");
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}
+	@RequestMapping(value="/image/{fileName}", method=RequestMethod.GET)
+	@ResponseBody
+	public void displayPics(@PathVariable("fileName") String fileName, HttpServletResponse resp, Model model) throws IOException {
+		File file = new File(FILE_LOCATION + fileName+".png");
+		Files.copy(file.toPath(), resp.getOutputStream());
+	}
 	
 	@RequestMapping(value="/{username}/changeProfilePicture", method=RequestMethod.POST)
 	public String receiveUpload(@PathVariable("username") String username, @RequestParam("profilePicture") MultipartFile multiPartFile, Model model, HttpSession s) throws IOException{
 		User user = (User) s.getAttribute("user");
-		String type = multiPartFile.getContentType();
-		type = type.substring(6);
-		String imageName = user.getUserID() + "_profilePic."+type;
+		String imageName = user.getUserID() + "_profilePic.png";
 		File fileOnDisk = new File(FILE_LOCATION + imageName);
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		try{

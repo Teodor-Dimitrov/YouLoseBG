@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -85,10 +86,20 @@ public class VideoController {
 	@ResponseBody
 	public void playVideo(@PathVariable("videoPath") String fileName, HttpServletResponse resp, Model model, HttpSession session) throws IOException{
 		User user =(User) session.getAttribute("user");
-		System.out.println(user.getName()); 
-		File file = new File(FILE_LOC + openedVid);
+		String video = (String) session.getAttribute("videoPath");
+		File file = new File(FILE_LOC + video);
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}
+	
+	
+	@RequestMapping(value = "openVideo", method = RequestMethod.GET)
+	public String openVideo(HttpServletRequest req, HttpSession s){
+		String videoPath = req.getParameter("videoPath");
+		s.setAttribute("videoPath", videoPath);
+		System.out.println(videoPath);
+		return "videoPlay";
+	}
+	
 
 	@ResponseBody
 	@RequestMapping(value = "/likeVideo", method = RequestMethod.POST)

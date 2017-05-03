@@ -16,21 +16,33 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
-    <link href="/MyProject/static/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/MyProject/static/css/material-kit.css" rel="stylesheet"/>
+    <link href="/Youlose/static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Youlose/static/css/material-kit.css" rel="stylesheet"/>
+    <style>
+    	.search-section {
+			margin-top: 40px;   	
+    	}
+    </style>
 
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<table>
+<table class="search-section">
 	<td>
 		<jsp:include page="left.jsp" />
 	</td>
 	<td>
-		<h1>Results for ${sessisonScope.searched}</h1>
-	<c:forEach var ="current" items="${sess}" begin="0" end="searchedWordList.size()-1">
-   <c:out value="$video" type = "video"/></br>
-</c:forEach>
+		<h1>Results for <c:out value="${searchedWord}"/></h1>
+		<c:forEach var ="current" items="${results}">
+			<div>
+				<form action="openVideo" method="get">
+					<input type="hidden" value="${current.value.path }" name="videoPath">
+					<img src="image/thumbnail.png" alt="thumbnail" style="width:120px;heigth;">
+					<c:out value = "${current.key }"/>
+					<input type="submit" value="Watch Now" class="btn btn-simple btn-primary btn-lg"  style="color:white">
+			</div>
+			
+		</c:forEach>
 	</td>
 </table>
 </body>
