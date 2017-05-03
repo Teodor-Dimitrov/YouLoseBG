@@ -29,14 +29,14 @@ public class VideoDAO {
 	}
 
 	public HashMap<String, Video> getAllVideos() throws SQLException {
-		String sql = "SELECT videos_id, name, path, views,date,description FROM videos;";
+		String sql = "SELECT video_id, name, path, views,date,description FROM videos;";
 		PreparedStatement st = null;
 		if (allVideos.isEmpty()) {
 			st = DBManager.getInstance().getConnection().prepareStatement(sql);
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 				Video video = new Video();
-				video.setId(res.getInt("videos_id"));
+				video.setId(res.getInt("video_id"));
 				video.setName(res.getString("name"));
 				video.setPath(res.getString("path"));
 				video.setViews(res.getInt("views"));
@@ -50,7 +50,7 @@ public class VideoDAO {
 	}
 
 	public HashMap<String, Video> searchAllByString(String partOfName) throws SQLException {
-		String sql = "SELECT videos_id, name, path, views,date,description FROM videos WHERE name " + "like '%"
+		String sql = "SELECT video_id, name, path, views,date,description FROM videos WHERE name " + "like '%"
 				+ partOfName + "'%;";
 
 		PreparedStatement st = null;
@@ -76,20 +76,34 @@ public class VideoDAO {
 		String sql = "INSERT INTO videos (name, path, views,date,description) VALUES (?,?,?,?,?);";
 		Instant instant = Instant.now();
 		Timestamp time = java.sql.Timestamp.from(instant);
-		PreparedStatement ps = null;
-		ps = DBManager.getInstance().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		ps.setString(1, video.getName());
-		ps.setString(2, video.getPath());
-		ps.setInt(3, video.getViews());
-		ps.setTimestamp(4, time);
-		ps.setString(5, video.getDescription());
-		
-		ps.executeUpdate();
-		ResultSet rs = ps.getGeneratedKeys();
-		rs.next();
-		video.setId(rs.getLong(1));
-		UserDAO.getInstance().addVideoToPlaylist(video, user, "uploaded");
-		return video.getId();
+		Connection con = DBManager.getInstance().getConnection();
+		PreparedStatement ps1 = null;
+		PreparedStatement ps2 = null;
+		try {
+
+			con.setAutoCommit(false);
+			ps1 = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps1.setString(1, video.getName());
+			ps1.setString(2, video.getPath());
+			ps1.setInt(3, video.getViews());
+			ps1.setTimestamp(4, time);
+			ps1.setString(5, video.getDescription());
+
+			ps1.executeUpdate();
+			ResultSet rs = ps1.getGeneratedKeys();
+			rs.next();
+			video.setId(rs.getLong(1));
+			String sql2 = "INSERT INTO playlist_videos(videos_video_playlist_id, playlists_playlist_id) VALUE (?,?);";
+			ps2 = con.prepareStatement(sql2);
+			ps2.setLong(1, video.getId());
+			ps2.setLong(2, user.getUserID());
+			ps2.execute();
+			con.commit();
+			return video.getId();
+		} catch (SQLException e) {
+			con.rollback();
+			throw new SQLException("Erro and rollback");
+		}
 	}
 
 	public synchronized void likeVideo(long videoID, long userID) throws SQLException {
@@ -163,13 +177,12 @@ public class VideoDAO {
 					if (entry.getValue().equals(video)) {
 						allVideos.remove(entry.getKey(), video);
 					}
-					
+
 				}
 				System.out.println("iztrih go");
 			}
 		}
 	}
-
 
 	public void viewVideo(Video video) throws SQLException {
 		String sql = "SELECT views FROM videos WHERE videos_id=" + video.getId() + ";";
@@ -185,7 +198,8 @@ public class VideoDAO {
 
 	public void deleteComment(Comment comment) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
-		PreparedStatement st = con.prepareStatement("DELETE FROM comments WHERE comment_id= " + comment.getCommentID() + ";");
+		PreparedStatement st = con
+				.prepareStatement("DELETE FROM comments WHERE comment_id= " + comment.getCommentID() + ";");
 		st.executeUpdate();
 
 	}

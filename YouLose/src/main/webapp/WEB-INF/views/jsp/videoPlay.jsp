@@ -23,16 +23,16 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<table >
+<table>
 		<td>
 			<jsp:include page="left.jsp" />
 		</td>
 		<td>
 			<jsp:include page="player.jsp" />
 		</td>
-	<	<td>
+	<%-- 	<td>
 		  <jsp:include page = "right.jsp">
-		</td>> 
+		</td> --%>
 </table>
 </body>
 </html>
