@@ -114,6 +114,7 @@ public class VideoDAO {
 			con.commit();
 			return video.getId();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			con.rollback();
 			throw new SQLException("Erro and rollback");
 		}

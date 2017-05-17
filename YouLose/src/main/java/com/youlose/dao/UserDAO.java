@@ -58,7 +58,7 @@ public class UserDAO {
 			int rowsAffected = ps1.executeUpdate();
 			ResultSet rs = ps1.getGeneratedKeys();
 			while(rs.next()){
-				user.setUserID(rs.getInt(1));
+				user.setUserID(rs.getLong(1));
 			} 
 			String sql2 = "INSERT INTO mydb.playlists (users_user1_id, name) VALUES (?,?) ";
 			for(String playlist : user.getPlaylists()){
@@ -67,17 +67,18 @@ public class UserDAO {
 				   
 				PreparedStatement ps = null;
 				
-					ps = DBManager.getInstance().getConnection().prepareStatement(sql2);
+					ps = DBManager.getInstance().getConnection().prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
 					ps.setLong(1, user.getUserID());
 					ps.setString(2, user.getName());
 					ps.executeUpdate();
-					ResultSet rs2 = ps.executeQuery();
+					ResultSet rs2 = ps.getGeneratedKeys();
 			}
 			    con.commit();
 				users.put(user.getEmail(), user);
 				return true;
 			
 		    } catch(SQLException e ){
+		    	e.printStackTrace();
 		    	con.rollback();
 		    	System.out.println("error in trasaction in userdao");
 		    

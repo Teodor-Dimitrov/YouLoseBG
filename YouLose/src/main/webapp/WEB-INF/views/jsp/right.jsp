@@ -15,26 +15,27 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
-    <link href="./static/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="./static/css/material-kit.css" rel="stylesheet"/>
+    <link href="/Youlose/static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Youlose/static/css/material-kit.css" rel="stylesheet"/>
 
 </head>
 <body>
 <c:if test="${ user != null}}">
-		
+	<table>
 			<c:forEach var="allVideos" items="${model.allVideos}"> 
 				<tr>
 					<td>
-					<c:out	value="${ allVideos.getKey(); }"></c:out>
+						<img src="/Youlose/static/image/thumbnail.png" width="20" height="20"/>>
 					</td>
 					<td>
-						<img src='<c:url value="${AllVideos.getValue.getPath}"/>' width="20" height="20"/>>
+						<c:out	value="${ allVideos.getKey(); }"></c:out>
 					</td>
+					
 					
 				</tr>
 			</c:forEach>
-		
-	</c:if>
+	</table>
+</c:if>
 
 </body>
 </html>

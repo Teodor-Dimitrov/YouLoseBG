@@ -37,8 +37,8 @@
 			<div>
 				<form action="openVideo" method="get">
 					<input type="hidden" value="${current.value.path }" name="videoPath">
+					<h2 style="color:white"><c:out value = "${current.key } "/></h2>
 					<img src="image/thumbnail.png" alt="thumbnail" style="width:120px;heigth;">
-					<c:out value = "${current.key }"/>
 					<input type="submit" value="Watch Now" class="btn btn-simple btn-primary btn-lg"  style="color:white">
 			</div>
 			

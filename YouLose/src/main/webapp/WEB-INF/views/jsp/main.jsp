@@ -15,8 +15,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
-    <link href="/MyProject/static/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/MyProject/static/css/material-kit.css" rel="stylesheet"/>
+    <link href="/Youlose/static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Youlose/static/css/material-kit.css" rel="stylesheet"/>
 
 </head>
 <body>
@@ -32,7 +32,7 @@
 						<div class="card card-signup">
 							<form class="form" action="main" method="post" enctype="multipart/form-data">
 								<h3 class="text-divider"><b><i>Upload video</i></b></h3>
-								<img src="./static/img/upload.ico" alt="upload" style="width: 75px; height:;">
+								<img src="/Youlose/static/img/upload.ico" alt="upload" style="width: 75px; height:;">
 								<div class="content">
 								<input type="file" id="video" name="video" accept="video/*"><br>
 									<div class="input-group">

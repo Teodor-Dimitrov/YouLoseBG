@@ -26,7 +26,7 @@
 <title>header</title>
 
 </head>
-<body  style="background-image: url('/MyProject/static/img/bg2.jpeg'); background-size: cover; background-position: top center;">
+<body  style="background-image: url('/Youlose/static/img/bg2.jpeg'); background-size: cover; background-position: top center;">
 	<c:set var="button1" scope="session" value="Home" />
 	<c:set var="button2" scope="session" value="Log out" />
 	<c:set var="button3" scope="session" value="Upload" />
@@ -43,17 +43,13 @@
 	</c:if>
 	<table class="search-engine">
 		<tr>
-			<td><img src="/MyProject/static/img/youlose.png" alt="logo"
+			<td><img src="/Youlose/static/img/youlose.png" alt="logo"
 				style="width: 175px; height:100px;"></td>
 			
 			<td>
 				<form action="search" method="get">
 					<input type="text" placeholder="Search" name="searchWord" required="required" style="width: 250px;">
-					 <select name="searched" style="width: 150px;">
-						    <option value="video">Videos</option>
-						    <option value="user">Users</option>
-						    <option value="playlist">Playlists</option>
-					  </select>
+					<input type="hidden" name="searched" value="Videos"> 
 					<input type="submit" value="Search"> 
 				</form>
 			</td>

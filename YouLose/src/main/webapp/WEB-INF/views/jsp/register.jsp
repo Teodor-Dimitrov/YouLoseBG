@@ -18,9 +18,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
-	<link href="<c:url value="/MyProject/static/css/bootstrap.min.css" />" rel="stylesheet" type="text/css">
-    <link href="<c:url value="/MyProject/static/css/material-kit.css"/>" rel="stylesheet"/>
-
+	 <link href="/Youlose/static/css/bootstrap.min.css" rel="stylesheet" />
+   	 <link href="/Youlose/static/css/material-kit.css" rel="stylesheet"/>
 </head>
 
 <body class="signup-page">
