@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>${videoPath}</title>
+<title>${video}</title>
 	<style>
 		div#video_player_box{ width:550px; background:#000; margin:0px auto;}
 		div#video_controls_bar{ background: #333; padding:10px;}
@@ -15,11 +15,26 @@
 
 </head>
 <body>
+
+ 
+ <div>
+ <h2><b> <c:out	value="${ video.getName() }"></c:out></b> </h2>
+ </div>
+
 <div id="video_player_box">
   <video id="my_video" width="550" height="300" controls>
-    <source src="video/${videoPath}">
+    <source src="video/${video.getPath()}">
   </video>
+  </div>
+  
+  <div>
+  <table border="1" id="tablichka">
+  <h4><i><b> <c:out  value="${ video.getDescription() }"></c:out></b></i> </h4>
+  </table>
+  </div>
  
-</div>
+
+  
+
 </body>
 </html>
